@@ -47,6 +47,5 @@ public class GameCursor : MonoBehaviour
         throw new NotImplementedException();
     }
     
-    public 
 
 }
