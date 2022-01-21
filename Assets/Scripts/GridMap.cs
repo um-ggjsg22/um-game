@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GridMap : MonoBehaviour
 {
+    private static GridMap instance = null;
+    public static GridMap Instance { get { return instance; } }
+
     [SerializeField]
     private int gridLength = 13;
     public int GridLength
@@ -23,6 +26,15 @@ public class GridMap : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.Log("GridMap already has an existing instance! Destroying " + gameObject.name);
+            Destroy(gameObject);
+            return;
+        }
+
         // Calculate info about the grids
         gridSize = floor.GetComponent<RectTransform>().sizeDelta.x / gridLength;
         startPos = new Vector3(floor.transform.position.x - gridLength * 0.5f * gridSize + 0.5f * gridSize, floor.transform.position.y - gridLength * 0.5f * gridSize + 0.5f * gridSize);
@@ -37,8 +49,8 @@ public class GridMap : MonoBehaviour
         
     }
 
-    private void SetPosition()
+    public Vector3 GetPositionCoordinate(int x, int y)
     {
-        //startTest.position = startPos + new Vector3(startX * gridSize, startY * gridSize);
+        return startPos + new Vector3(x * gridSize, y * gridSize);
     }
 }
