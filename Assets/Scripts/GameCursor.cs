@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
 
@@ -9,11 +11,20 @@ public class GameCursor : MonoBehaviour
      *   CONFIG
      *  ================================== */    
     
+    [Tooltip("Sets the base cursor speed in the X direction")]
     [SerializeField] private float baseXSpeed = 240;
 
+    [Tooltip("Sets the base cursor speed in the Y direction")]
     [SerializeField] private float baseYSpeed = 240;
 
+    [Tooltip("Sets the minimum 'drag distance' before a click is considered a drag")]
     [SerializeField] private float minDragDistanceThreshold = 10;
+
+    [Tooltip("What multipler does a slow apply")]
+    [SerializeField] private float slowFactor = 0.8f;
+
+    [Tooltip(("How probable is random teleportation per 10 ticks out of 1000000"))] 
+    [SerializeField] private int teleportProbability = 1000;
 
     /* ==================================
      *   STATE
@@ -22,8 +33,6 @@ public class GameCursor : MonoBehaviour
     
     private float _dragPenalty = 1;
     
-    //TODO: Add support for debuff penalties
-
     // Position of hunter in grid
     private Vector2 _gridPosition;
 
@@ -39,6 +48,15 @@ public class GameCursor : MonoBehaviour
     // Get min and max pixel coordinates of grid
     private Vector3 _gridBottomLeft = GridManager.GetGridBottomLeft();
     private Vector3 _gridTopRight = GridManager.GetGridTopRight();
+    
+    //TODO: Add support for debuff penalties
+    // Debuff states
+    private int _slowDurationLeft = 0;
+    private int _teleportDurationLeft = 0;
+    private int _freezeDurationLeft = 0;
+    private int _invertDurationLeft = 0;
+    private int _flipAxesDurationLeft = 0;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +71,18 @@ public class GameCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TickDownDebuffs();
         UpdateCursorPosition();
         UpdateCursorState();
+    }
+    
+    private void TickDownDebuffs()
+    {
+        if(_slowDurationLeft > 0)_slowDurationLeft -= 1;
+        if(_teleportDurationLeft > 0)_teleportDurationLeft -= 1;
+        if(_freezeDurationLeft > 0)_freezeDurationLeft -= 1;
+        if(_invertDurationLeft > 0)_invertDurationLeft -= 1;
+        if(_flipAxesDurationLeft > 0)_flipAxesDurationLeft -= 1;
     }
 
     private void UpdateCursorPosition()
@@ -62,13 +90,22 @@ public class GameCursor : MonoBehaviour
         // Reset grid moved
         _hasCrossedGridSquare = false;
         
+        // Skip movement for freeze
+        if (_freezeDurationLeft > 0) return;
+
+        //TODO work with coroutines tohhhhh
+        if (_teleportDurationLeft > 0) ;
         // Get mouse movement
         var aX = Input.GetAxis("Mouse X");
         var aY = Input.GetAxis("Mouse Y");
         
-        // Compute actual cursor movement
-        var xMove = baseXSpeed * aX * Time.deltaTime * (_state is CursorState.Idle ? 1 : _dragPenalty);
-        var yMove = baseYSpeed * aY * Time.deltaTime * (_state is CursorState.Idle ? 1 : _dragPenalty);
+        // Compute actual cursor movement factoring in slow
+        var xMove = baseXSpeed * aX * Time.deltaTime 
+                    * (_state is CursorState.Idle ? 1 : _dragPenalty)
+                    * (_slowDurationLeft > 0 ? 1 : slowFactor);
+        var yMove = baseYSpeed * aY * Time.deltaTime 
+                    * (_state is CursorState.Idle ? 1 : _dragPenalty)
+                    * (_slowDurationLeft > 0 ? 1 : slowFactor);
         
         // Update cursor position
         var position = CurrentCursorPosition;
