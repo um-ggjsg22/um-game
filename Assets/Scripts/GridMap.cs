@@ -10,6 +10,10 @@ public class GridMap : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to Runner object")]
     private Runner runner;
+    [SerializeField]
+    private int startGridX = 2;
+    [SerializeField]
+    private int startGridY = 0;
 
     [SerializeField]
     private int gridLength = 13;
@@ -28,8 +32,9 @@ public class GridMap : MonoBehaviour
     }
     private Vector3 startPos;   // grid 0,0
 
-    [SerializeField]
-    private Transform startTest;
+    // Floor bounding box
+    private Vector3 floorMinPos;
+    private Vector3 floorMaxPos;
 
     // Start is called before the first frame update
     void Awake()
@@ -47,11 +52,14 @@ public class GridMap : MonoBehaviour
         gridSize = floor.GetComponent<RectTransform>().sizeDelta.x / gridLength;
         startPos = new Vector3(floor.transform.position.x - gridLength * 0.5f * gridSize + 0.5f * gridSize, floor.transform.position.y - gridLength * 0.5f * gridSize + 0.5f * gridSize);
 
-        // Spawn smth at start pos
-        startTest.position = startPos;
-
         // Resize Runner according to the computed grid size
         runner.GetComponent<RectTransform>().sizeDelta = new Vector2(gridSize, gridSize);
+        // Set Runner's start position
+        //runner.transform.position = GetPositionCoordinate(startGridX, startGridY);
+        runner.GetComponent<GridPosition>().SetGridPosition(startGridX, startGridY);
+
+        floorMinPos = floor.transform.position - 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
+        floorMaxPos = floor.transform.position + 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
     }
 
     // Update is called once per frame
@@ -62,13 +70,11 @@ public class GridMap : MonoBehaviour
 
     public Vector3 FloorMinCoordinate()
     {
-        // TODO: implement this
-        return floor.transform.position - 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
+        return floorMinPos;
     }
     public Vector3 FloorMaxCoordinate()
     {
-        // TODO: implement this
-        return floor.transform.position + 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
+        return floorMaxPos;
     }
 
     public Vector2? GetGridCoordinate(Vector3 pos)

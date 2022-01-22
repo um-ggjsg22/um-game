@@ -1284,9 +1284,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 2031719195}
+  startGridX: 2
+  startGridY: 0
   gridLength: 12
   floor: {fileID: 788857654}
-  startTest: {fileID: 2031719194}
 --- !u!4 &399262614
 Transform:
   m_ObjectHideFlags: 0
@@ -5983,6 +5984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529e5f7e5a603e342a48e2adcc2328b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomManager: {fileID: 598308799}
 --- !u!114 &2031719196
 MonoBehaviour:
   m_ObjectHideFlags: 0

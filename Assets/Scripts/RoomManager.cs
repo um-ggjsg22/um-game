@@ -151,4 +151,12 @@ public class RoomManager : MonoBehaviour
             Destroy(obj.gameObject);
         }
     }
+
+    public bool IsOccupied(int gridX, int gridY)
+    {
+        if (gridX < 0 || gridX >= GridMap.Instance.GridLength || gridY < 0 || gridY >= GridMap.Instance.GridLength)
+            return true;
+
+        return (occupancyGrid[gridX, gridY] != null);
+    }
 }
