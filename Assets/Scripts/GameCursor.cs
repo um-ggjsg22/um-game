@@ -79,8 +79,6 @@ public class GameCursor : MonoBehaviour
         transform.position = _gridBottomLeft + new Vector3(_mapWidth * 0.5f, _mapHeight * 0.5f, 0);
         _gridPosition = (Vector2)GridManager.GetGridPosition(CurrentCursorPosition);
         StartCoroutine(TickDownDebuffs());
-        ApplyFlip(100);
-        ApplyInvert(100);
     }
 
     // Update is called once per frame
