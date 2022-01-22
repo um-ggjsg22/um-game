@@ -33,6 +33,19 @@ public class GridPosition : MonoBehaviour
         
     }
 
+    public bool SetGridPosition(int x, int y)
+    {
+        if (x < 0 || x >= GridMap.Instance.GridLength || y < 0 || y >= GridMap.Instance.GridLength)
+            return false;
+
+        posX = x;
+        posY = y;
+
+        UpdateGridPositionCoordinate();
+
+        return true;
+    }
+
     public bool UpdateGridPosition(int xDelta, int yDelta)
     {
         int prevPosX = posX, prevPosY = posY;
