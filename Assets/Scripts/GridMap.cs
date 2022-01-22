@@ -50,8 +50,8 @@ public class GridMap : MonoBehaviour
         // Spawn smth at start pos
         startTest.position = startPos;
 
-        // TODO: get all "grid objects", resize everything according to the computed grid size
-
+        // Resize Runner according to the computed grid size
+        runner.GetComponent<RectTransform>().sizeDelta = new Vector2(gridSize, gridSize);
     }
 
     // Update is called once per frame
