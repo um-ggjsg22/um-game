@@ -35,6 +35,10 @@ public class GameCursor : MonoBehaviour
 
     // Property representing the state as enum
     private CursorState _state => _realState.GetState();
+    
+    // Get min and max pixel coordinates of grid
+    private Vector3 _gridBottomLeft = GridManager.GetGridBottomLeft();
+    private Vector3 _gridTopRight = GridManager.GetGridTopRight();
 
     // Start is called before the first frame update
     void Start()
@@ -69,17 +73,31 @@ public class GameCursor : MonoBehaviour
         // Update cursor position
         var position = CurrentCursorPosition;
         position += new Vector3(xMove, yMove, 0);
+        position = CorrectPositionForBounds(position);
         transform.position = position;
         
         // Check if grid square changed
-        var newPos = GridManager.GetGridPosition(position) ?? Vector2.zero; // TODO: CHANGE
+        var newPos = GridManager.GetGridPosition(position);
+        if (newPos is null)
+        {
+            return;
+        }
         _hasCrossedGridSquare = newPos != _gridPosition;
-        _gridPosition = newPos;
+        _gridPosition = (Vector2)newPos;
     }
     
     private void UpdateCursorState()
     {
         _realState = _realState.NextState(this);
+    }
+
+    private Vector3 CorrectPositionForBounds(Vector3 position)
+    {
+        if (position.y > _gridTopRight.y) position.y = _gridTopRight.y;
+        else if (position.y < _gridBottomLeft.y) position.y = _gridBottomLeft.y;
+        if (position.x > _gridTopRight.x) position.x = _gridTopRight.x;
+        else if (position.x < _gridBottomLeft.x) position.x = _gridBottomLeft.x;
+        return position;
     }
     
     // Properties to simplify code
@@ -96,11 +114,11 @@ public class GameCursor : MonoBehaviour
     
     private class EmptySquare : IHunterInteractable
     {
-        private Vector2 gridPosition = Vector2.zero;
+        private Vector2 _gridPosition = Vector2.zero;
 
         public Vector2 GetGridPosition()
         {
-            return gridPosition;
+            return _gridPosition;
         }
 
         public float DragPenalty() => 1;
@@ -109,7 +127,7 @@ public class GameCursor : MonoBehaviour
 
         public static EmptySquare At(Vector2 coords)
         {
-            _emptySquare.gridPosition = coords;
+            _emptySquare._gridPosition = coords;
             return _emptySquare;
         }
         private EmptySquare()
@@ -174,7 +192,7 @@ public class GameCursor : MonoBehaviour
             // If the cursor exited the grid or exceeds the bounds from where the click started, transit to dragging
             if (cursor._hasCrossedGridSquare || ExceedBounds(cursor))
             {
-                return Dragging.State(tile, cursor);
+                return Dragging.State(tile).NextState(cursor);
             }
 
             // Otherwise stay in MouseDown state
@@ -201,7 +219,7 @@ public class GameCursor : MonoBehaviour
     
     private sealed class Dragging:ICursorStateMachine
     {
-        private IHunterInteractable _tileUnderDrag = EmptySquare.At(Vector2.zero);
+        private IHunterInteractable _tileUnderDrag = EmptySquare.At(Vector2.negativeInfinity);
         public CursorState GetState() => CursorState.Dragging;
 
         public ICursorStateMachine NextState(GameCursor cursor)
@@ -212,9 +230,16 @@ public class GameCursor : MonoBehaviour
                 // Get current tile under cursor
                 var tileUnderCursor = cursor.TileUnderCursor;
                 // If the tile is empty or is the tile being dragged (multi-tile object) then move object
-                if (tileUnderCursor is EmptySquare || tileUnderCursor == _tileUnderDrag)
+                if ((tileUnderCursor is EmptySquare || tileUnderCursor == _tileUnderDrag) && GridManager.GetRunnerPosition() != cursor._gridPosition)
                 {
                     draggedTile.OnMove(cursor._gridPosition);
+                }
+                // Otherwise drop the dragged item and reset the drag penalty
+                else
+                {
+                    var empty = EmptySquare.At(Vector2.negativeInfinity);
+                    cursor._dragPenalty = empty.DragPenalty();
+                    return Dragging.State(empty);
                 }
             }
             // If release cursor, return to idle state
@@ -230,10 +255,10 @@ public class GameCursor : MonoBehaviour
         // Singleton design
         private static readonly Dragging _dragging = new Dragging();
 
-        public static ICursorStateMachine State(IHunterInteractable tileUnderDrag, GameCursor cursor)
+        public static Dragging State(IHunterInteractable tileUnderDrag)
         {
             _dragging._tileUnderDrag = tileUnderDrag;
-            return _dragging.NextState(cursor);
+            return _dragging;
         }
         private Dragging(){}
     }
@@ -251,5 +276,20 @@ public static class GridManager
     {
         throw new NotImplementedException();
 
+    }
+
+    public static Vector2 GetRunnerPosition()
+    {
+        return GridMap.Instance.GetRunnerPosition();
+    }
+
+    public static Vector3 GetGridBottomLeft()
+    {
+        return GridMap.Instance.FloorMinCoordinate();
+    }
+
+    public static Vector3 GetGridTopRight()
+    {
+        return GridMap.Instance.FloorMaxCoordinate();
     }
 }
