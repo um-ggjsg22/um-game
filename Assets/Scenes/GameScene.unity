@@ -2855,6 +2855,7 @@ MonoBehaviour:
   spriteHeight: 3
   baseWidth: 1
   baseHeight: 3
+  animationTime: 0.5
 --- !u!114 &1064892219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3388,6 +3389,7 @@ MonoBehaviour:
   spriteHeight: 2
   baseWidth: 2
   baseHeight: 1
+  animationTime: 0.5
 --- !u!114 &1182110412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3774,6 +3776,7 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
+  animationTime: 0.5
 --- !u!114 &1334344313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3823,6 +3826,7 @@ GameObject:
   - component: {fileID: 1348111010}
   - component: {fileID: 1348111009}
   - component: {fileID: 1348111008}
+  - component: {fileID: 1348111011}
   m_Layer: 5
   m_Name: Hunter
   m_TagString: Untagged
@@ -3847,7 +3851,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1348111008
 MonoBehaviour:
@@ -3866,7 +3870,7 @@ MonoBehaviour:
   minDragDistanceThreshold: 10
   slowFactor: 0.8
   teleportProbability: 0.002
-  _teleportCooldown: 5
+  teleportCooldown: 5
 --- !u!114 &1348111009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3886,7 +3890,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6a65d1a85a0ec9143a73185f58c8de3f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3904,6 +3908,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348111006}
   m_CullTransparentMesh: 0
+--- !u!95 &1348111011
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348111006}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 359adeb6693469544844d190c840b1a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1353475443
 GameObject:
   m_ObjectHideFlags: 0
@@ -5904,6 +5927,8 @@ GameObject:
   - component: {fileID: 2031719198}
   - component: {fileID: 2031719197}
   - component: {fileID: 2031719195}
+  - component: {fileID: 2031719196}
+  - component: {fileID: 2031719199}
   m_Layer: 5
   m_Name: Runner
   m_TagString: Untagged
@@ -5928,7 +5953,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -90}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 75, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2031719195
 MonoBehaviour:
@@ -5949,6 +5974,27 @@ MonoBehaviour:
   baseHeight: 1
   startGridX: 4
   startGridY: 0
+--- !u!114 &2031719196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031719193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87a76f667639234b85942dfb5b6d804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteSwapList:
+  - name: Up
+    animator: {fileID: 9100000, guid: ab6ddd884eec97d4c827cba4df277c34, type: 2}
+  - name: Down
+    animator: {fileID: 9100000, guid: 55f8f15126cea404394148c49af31f71, type: 2}
+  - name: Left
+    animator: {fileID: 9100000, guid: e74a30a39358369449dd05973dc14d1a, type: 2}
+  - name: Right
+    animator: {fileID: 9100000, guid: 65f63a91994cbcc41a2fa0c197efb6ad, type: 2}
 --- !u!114 &2031719197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5962,13 +6008,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69bf2e1042b03d4449dd2e7304f8d37d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5986,6 +6032,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031719193}
   m_CullTransparentMesh: 0
+--- !u!95 &2031719199
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031719193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ab6ddd884eec97d4c827cba4df277c34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2055086868
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,6 +6106,7 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
+  animationTime: 0.5
 --- !u!114 &2055086872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6170,3 +6236,4 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
+  animationTime: 0.5

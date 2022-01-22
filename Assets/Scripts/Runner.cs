@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteSwapper))]
 public class Runner : RoomObject
 {
     public enum Direction
@@ -19,9 +20,15 @@ public class Runner : RoomObject
     [SerializeField]
     private int startGridY = 0;
 
+    private SpriteSwapper spriteSwapper;
+
+    private bool inputCooldown = false; // input cooldown from previous key input/animation playing
+
     void Awake()
     {
         faceDirection = Direction.Dir_Up;
+
+        spriteSwapper = GetComponent<SpriteSwapper>();
     }
 
     // Start is called before the first frame update
@@ -33,15 +40,30 @@ public class Runner : RoomObject
         SetGridPosition(startGridX, startGridY, false);
     }
 
+    public void DisableInput()
+    {
+        inputCooldown = true;
+    }
+    public void EnableInput()
+    {
+        inputCooldown = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (inputCooldown)
+            return;
+
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (!GridMap.Instance.IsOccupied(this, gridPosition.PosX, gridPosition.PosY + 1))
             {
                 SetGridPosition(gridPosition.PosX, gridPosition.PosY + 1);
                 faceDirection = Direction.Dir_Up;
+
+                spriteSwapper.SwapAnimator("Up");
+                GetComponent<Animator>().SetTrigger("Walk");
             }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -50,6 +72,9 @@ public class Runner : RoomObject
             {
                 SetGridPosition(gridPosition.PosX, gridPosition.PosY - 1);
                 faceDirection = Direction.Dir_Down;
+
+                spriteSwapper.SwapAnimator("Down");
+                GetComponent<Animator>().SetTrigger("Walk");
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -58,6 +83,9 @@ public class Runner : RoomObject
             {
                 SetGridPosition(gridPosition.PosX - 1, gridPosition.PosY);
                 faceDirection = Direction.Dir_Left;
+
+                spriteSwapper.SwapAnimator("Left");
+                GetComponent<Animator>().SetTrigger("Walk");
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -66,6 +94,9 @@ public class Runner : RoomObject
             {
                 SetGridPosition(gridPosition.PosX + 1, gridPosition.PosY);
                 faceDirection = Direction.Dir_Right;
+
+                spriteSwapper.SwapAnimator("Right");
+                GetComponent<Animator>().SetTrigger("Walk");
             }
         }
     }
