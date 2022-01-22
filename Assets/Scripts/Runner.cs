@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(GridPosition))]
-public class Runner : MonoBehaviour
+public class Runner : RoomObject
 {
     public enum Direction
     {
@@ -13,17 +12,11 @@ public class Runner : MonoBehaviour
         Dir_Right,
     }
 
-    [SerializeField]
-    private RoomManager roomManager;
-
-    private GridPosition gridPositionComponent;
-
     private Direction faceDirection;    // direction the Runner is facing
 
     // Start is called before the first frame update
     void Awake()
     {
-        gridPositionComponent = GetComponent<GridPosition>();
         faceDirection = Direction.Dir_Up;
     }
 
@@ -32,48 +25,43 @@ public class Runner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (!roomManager.IsOccupied(gridPositionComponent.PosX, gridPositionComponent.PosY + 1))
+            if (!GridMap.Instance.IsOccupied(gridPosition.PosX, gridPosition.PosY + 1))
             {
-                gridPositionComponent.UpdateGridPosition(0, 1);
+                UpdateGridPosition(0, 1);
                 faceDirection = Direction.Dir_Up;
 
-                gridPositionComponent.UpdateGridPositionCoordinate();
+                UpdateGridPositionCoordinate();
             }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (!roomManager.IsOccupied(gridPositionComponent.PosX, gridPositionComponent.PosY - 1))
+            if (!GridMap.Instance.IsOccupied(gridPosition.PosX, gridPosition.PosY - 1))
             {
-                gridPositionComponent.UpdateGridPosition(0, -1);
+                UpdateGridPosition(0, -1);
                 faceDirection = Direction.Dir_Down;
 
-                gridPositionComponent.UpdateGridPositionCoordinate();
+                UpdateGridPositionCoordinate();
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (!roomManager.IsOccupied(gridPositionComponent.PosX - 1, gridPositionComponent.PosY))
+            if (!GridMap.Instance.IsOccupied(gridPosition.PosX - 1, gridPosition.PosY))
             {
-                gridPositionComponent.UpdateGridPosition(-1, 0);
+                UpdateGridPosition(-1, 0);
                 faceDirection = Direction.Dir_Left;
 
-                gridPositionComponent.UpdateGridPositionCoordinate();
+                UpdateGridPositionCoordinate();
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (!roomManager.IsOccupied(gridPositionComponent.PosX + 1, gridPositionComponent.PosY))
+            if (!GridMap.Instance.IsOccupied(gridPosition.PosX + 1, gridPosition.PosY))
             {
-                gridPositionComponent.UpdateGridPosition(1, 0);
+                UpdateGridPosition(1, 0);
                 faceDirection = Direction.Dir_Right;
 
-                gridPositionComponent.UpdateGridPositionCoordinate();
+                UpdateGridPositionCoordinate();
             }
         }
-    }
-
-    public Vector2 GetGridPosition()
-    {
-        return new Vector2(GetComponent<GridPosition>().PosX, GetComponent<GridPosition>().PosY);
     }
 }

@@ -49,12 +49,12 @@ public class ObjectPool : MonoBehaviour
             GridMap.Instance.GridSize * roomObjectScript.SpriteHeight);
 
         // Set position
-        newObject.GetComponent<GridPosition>().SetGridPosition(gridX, gridY);
+        roomObjectScript.SetGridPosition(gridX, gridY);
         // Set offset position
-        newObject.transform.position += new Vector3(
+        /*newObject.transform.position += new Vector3(
             (roomObjectScript.SpriteWidth - 1) * 0.5f * GridMap.Instance.GridSize,
             (roomObjectScript.SpriteHeight - 1) * 0.5f * GridMap.Instance.GridSize
-            );
+            );*/
 
         return roomObjectScript;
     }

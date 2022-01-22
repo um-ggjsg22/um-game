@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomManager: {fileID: 108230175}
+  objectPool: {fileID: 0}
   roomData:
   - {fileID: 4900000, guid: c951fdd1afac0d84fb6ccc132b59c9d2, type: 3}
 --- !u!114 &108230175
@@ -230,7 +231,6 @@ GameObject:
   - component: {fileID: 213922079}
   - component: {fileID: 213922083}
   - component: {fileID: 213922082}
-  - component: {fileID: 213922081}
   - component: {fileID: 213922080}
   m_Layer: 5
   m_Name: Object
@@ -275,18 +275,6 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
---- !u!114 &213922081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213922078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &213922082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +323,6 @@ GameObject:
   - component: {fileID: 647637398}
   - component: {fileID: 647637402}
   - component: {fileID: 647637401}
-  - component: {fileID: 647637400}
   - component: {fileID: 647637399}
   m_Layer: 5
   m_Name: Runner
@@ -375,18 +362,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529e5f7e5a603e342a48e2adcc2328b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &647637400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647637397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  objectName: 
+  spriteWidth: 0
+  spriteHeight: 0
+  baseWidth: 0
+  baseHeight: 0
 --- !u!114 &647637401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d00b6f8d42f54aaaa3f4ec25a016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectList: []
 --- !u!1 &1353819041
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,9 +666,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 647637399}
+  startGridX: 2
+  startGridY: 0
   gridLength: 12
   floor: {fileID: 1930507932}
-  startTest: {fileID: 647637398}
 --- !u!4 &1353819043
 Transform:
   m_ObjectHideFlags: 0

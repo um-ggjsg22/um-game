@@ -36,6 +36,31 @@ public class GridMap : MonoBehaviour
     private Vector3 floorMinPos;
     private Vector3 floorMaxPos;
 
+    // Occupancy Grid
+    private RoomObject[,] occupancyGrid;
+    public RoomObject OccupancyGrid(int x, int y)
+    {
+        return occupancyGrid[x, y];
+    }
+    public void UpdateOccupancyGrid(RoomObject obj, int x, int y)
+    {
+        // set to new grid
+        occupancyGrid[x, y] = obj;
+    }
+
+    public void ClearOccupancyGrid(int x, int y)
+    {
+        occupancyGrid[x, y] = null;
+    }
+
+    public bool IsOccupied(int gridX, int gridY)
+    {
+        if (gridX < 0 || gridX >= GridLength || gridY < 0 || gridY >= GridLength)
+            return true;
+
+        return (occupancyGrid[gridX, gridY] != null);
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,15 +73,28 @@ public class GridMap : MonoBehaviour
             return;
         }
 
+        // Create occupancy grid
+        occupancyGrid = new RoomObject[GridLength, GridLength];
+        for (int i = 0; i < GridLength; ++i)
+        {
+            for (int j = 0; j < GridLength; ++j)
+            {
+                occupancyGrid[i, j] = null;
+            }
+        }
+
         // Calculate info about the grids
         gridSize = floor.GetComponent<RectTransform>().sizeDelta.x / gridLength;
         startPos = new Vector3(floor.transform.position.x - gridLength * 0.5f * gridSize + 0.5f * gridSize, floor.transform.position.y - gridLength * 0.5f * gridSize + 0.5f * gridSize);
 
         // Resize Runner according to the computed grid size
-        runner.GetComponent<RectTransform>().sizeDelta = new Vector2(gridSize, gridSize);
-        // Set Runner's start position
-        //runner.transform.position = GetPositionCoordinate(startGridX, startGridY);
-        runner.GetComponent<GridPosition>().SetGridPosition(startGridX, startGridY);
+        if (runner != null)
+        {
+            runner.GetComponent<RectTransform>().sizeDelta = new Vector2(gridSize, gridSize);
+            // Set Runner's start position
+            //runner.transform.position = GetPositionCoordinate(startGridX, startGridY);
+            runner.SetGridPosition(startGridX, startGridY);
+        }
 
         floorMinPos = floor.transform.position - 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
         floorMaxPos = floor.transform.position + 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;

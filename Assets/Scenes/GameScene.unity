@@ -594,7 +594,7 @@ RectTransform:
   m_Children:
   - {fileID: 165626631}
   m_Father: {fileID: 1621337036}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2429,7 +2429,7 @@ Transform:
   - {fileID: 1182110409}
   - {fileID: 1064892216}
   m_Father: {fileID: 1621337036}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &786575228
 MonoBehaviour:
@@ -2813,7 +2813,6 @@ GameObject:
   - component: {fileID: 1064892216}
   - component: {fileID: 1064892220}
   - component: {fileID: 1064892219}
-  - component: {fileID: 1064892218}
   - component: {fileID: 1064892217}
   m_Layer: 5
   m_Name: Table2_Mid
@@ -2858,18 +2857,6 @@ MonoBehaviour:
   spriteHeight: 3
   baseWidth: 1
   baseHeight: 3
---- !u!114 &1064892218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064892215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1064892219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3359,7 +3346,6 @@ GameObject:
   - component: {fileID: 1182110409}
   - component: {fileID: 1182110413}
   - component: {fileID: 1182110412}
-  - component: {fileID: 1182110411}
   - component: {fileID: 1182110410}
   m_Layer: 5
   m_Name: Bookshelves
@@ -3404,18 +3390,6 @@ MonoBehaviour:
   spriteHeight: 2
   baseWidth: 2
   baseHeight: 1
---- !u!114 &1182110411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182110408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1182110412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3758,7 +3732,6 @@ GameObject:
   - component: {fileID: 1334344310}
   - component: {fileID: 1334344314}
   - component: {fileID: 1334344313}
-  - component: {fileID: 1334344312}
   - component: {fileID: 1334344311}
   m_Layer: 5
   m_Name: Stool
@@ -3803,18 +3776,6 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
---- !u!114 &1334344312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334344309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1334344313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4159,7 +4120,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1621337036}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4729,11 +4690,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 788857655}
-  - {fileID: 2031719194}
   - {fileID: 1396274420}
   - {fileID: 1939628971}
   - {fileID: 786575227}
   - {fileID: 89056032}
+  - {fileID: 2031719194}
   - {fileID: 1348111007}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -5566,7 +5527,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1621337036}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5944,7 +5905,6 @@ GameObject:
   - component: {fileID: 2031719194}
   - component: {fileID: 2031719198}
   - component: {fileID: 2031719197}
-  - component: {fileID: 2031719196}
   - component: {fileID: 2031719195}
   m_Layer: 5
   m_Name: Runner
@@ -5965,7 +5925,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1621337036}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5984,19 +5944,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529e5f7e5a603e342a48e2adcc2328b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomManager: {fileID: 598308799}
---- !u!114 &2031719196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031719193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  objectName: Runner
+  spriteWidth: 1
+  spriteHeight: 2
+  baseWidth: 1
+  baseHeight: 1
 --- !u!114 &2031719197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6045,7 +5997,6 @@ GameObject:
   - component: {fileID: 2055086869}
   - component: {fileID: 2055086873}
   - component: {fileID: 2055086872}
-  - component: {fileID: 2055086871}
   - component: {fileID: 2055086870}
   m_Layer: 5
   m_Name: Toilet
@@ -6090,18 +6041,6 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
---- !u!114 &2055086871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055086868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2055086872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6150,7 +6089,6 @@ GameObject:
   - component: {fileID: 2131889318}
   - component: {fileID: 2131889322}
   - component: {fileID: 2131889321}
-  - component: {fileID: 2131889320}
   - component: {fileID: 2131889323}
   m_Layer: 5
   m_Name: TableSmall
@@ -6178,18 +6116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 69, y: 69}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2131889320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131889317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3517c1fd14cf3064b865f40f78457695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2131889321
 MonoBehaviour:
   m_ObjectHideFlags: 0
