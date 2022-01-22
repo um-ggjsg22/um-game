@@ -1283,9 +1283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7553ac4c19cce304c8263864426e3c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnObjectParent: {fileID: 1939628971}
   runner: {fileID: 2031719195}
-  startGridX: 2
-  startGridY: 0
   gridLength: 12
   floor: {fileID: 788857654}
 --- !u!4 &399262614
@@ -1642,7 +1641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abfe8ce59b485341abc892fd85c36fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObjectParent: {fileID: 1939628971}
   roomObjectPrefab: {fileID: 0}
   floorImage: {fileID: 788857658}
   wallImage: {fileID: 1396274418}
@@ -5949,6 +5947,8 @@ MonoBehaviour:
   spriteHeight: 2
   baseWidth: 1
   baseHeight: 1
+  startGridX: 4
+  startGridY: 0
 --- !u!114 &2031719197
 MonoBehaviour:
   m_ObjectHideFlags: 0

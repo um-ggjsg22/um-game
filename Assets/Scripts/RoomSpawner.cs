@@ -32,7 +32,7 @@ public class RoomSpawner : MonoBehaviour
         foreach (RoomObjectData objData in data.objects)
         {
             // Instantiate the object
-            RoomObject roomObject = objectPool.SpawnObject(objData.objectType, objData.gridX, objData.gridY, roomManager.SpawnObjectParent);
+            RoomObject roomObject = objectPool.SpawnObject(objData.objectType, objData.gridX, objData.gridY);
 
             // Add to Object List & Occupancy Grid
             roomManager.AddObjectToList(roomObject, objData.gridX, objData.gridY);

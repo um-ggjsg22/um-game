@@ -1,0 +1,1 @@
+{"floor":"square-floor-2","wall":"square-floor-6","objects":[{"objectType":"TableMid2","gridX":0,"gridY":0},{"objectType":"TableMid2","gridX":1,"gridY":0},{"objectType":"TableMid2","gridX":2,"gridY":0}]}

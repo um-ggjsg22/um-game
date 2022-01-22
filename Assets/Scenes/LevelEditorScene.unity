@@ -3510,7 +3510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abfe8ce59b485341abc892fd85c36fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObjectParent: {fileID: 1311018936}
   roomObjectPrefab: {fileID: 1302116432}
   floorImage: {fileID: 2217387}
   wallImage: {fileID: 388654935}
@@ -4667,6 +4666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7553ac4c19cce304c8263864426e3c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnObjectParent: {fileID: 1311018936}
   runner: {fileID: 0}
   startGridX: 2
   startGridY: 0

@@ -47,16 +47,21 @@ public class RoomObject : MonoBehaviour, IHunterInteractable
     protected GridPosition gridPosition;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        // Set object size
-        GetComponent<RectTransform>().sizeDelta = new Vector2(GridMap.Instance.GridSize * spriteWidth, GridMap.Instance.GridSize * spriteHeight);
+        SetObjectSize();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetObjectSize()
+    {
+        // Set object size
+        GetComponent<RectTransform>().sizeDelta = new Vector2(GridMap.Instance.GridSize * spriteWidth, GridMap.Instance.GridSize * spriteHeight);
     }
 
     public Vector2 GetGridPosition()
@@ -68,37 +73,43 @@ public class RoomObject : MonoBehaviour, IHunterInteractable
 
 
 
-    public bool SetGridPosition(int x, int y)
+    public bool SetGridPosition(int x, int y, bool clear = true)
     {
+        // Check if out of bounds
         if (x < 0 || x >= GridMap.Instance.GridLength || y < 0 || y >= GridMap.Instance.GridLength)
             return false;
 
+        // Clear occupancy grid - take note of size
+        if (clear)
+        {
+            for (int i = gridPosition.PosX; i < gridPosition.PosX + baseWidth; ++i)
+            {
+                for (int j = gridPosition.PosY; j < gridPosition.PosY + baseHeight; ++j)
+                {
+                    GridMap.Instance.ClearOccupancyGrid(i, j);
+                }
+            }
+        }
+
+        // Update grid position
         gridPosition.PosX = x;
         gridPosition.PosY = y;
+
+        // Update occupancy grid - take note of size
+        for (int i = gridPosition.PosX; i < gridPosition.PosX + baseWidth; ++i)
+        {
+            for (int j = gridPosition.PosY; j < gridPosition.PosY + baseHeight; ++j)
+            {
+                GridMap.Instance.UpdateOccupancyGrid(this, i, j);
+            }
+        }
+
+        // if Y changed, update row parent for sprite sorting
+        GridMap.Instance.SetRowSorting(transform, gridPosition.PosY);
 
         UpdateGridPositionCoordinate();
 
         return true;
-    }
-
-    public bool UpdateGridPosition(int xDelta, int yDelta)
-    {
-        int prevPosX = gridPosition.PosX, prevPosY = gridPosition.PosY;
-
-        gridPosition.PosX = Mathf.Clamp(gridPosition.PosX + xDelta, 0, GridMap.Instance.GridLength - 1);
-        gridPosition.PosY = Mathf.Clamp(gridPosition.PosY + yDelta, 0, GridMap.Instance.GridLength - 1);
-
-        // check whether it got updated
-        if (prevPosX != gridPosition.PosX || prevPosY != gridPosition.PosY)
-        {
-            // Update occupancy grid - take note of size
-            GridMap.Instance.ClearOccupancyGrid(prevPosX, prevPosY);
-            //GridMap.Instance.UpdateOccupancyGrid();
-
-            return true;
-        }
-
-        return false;
     }
 
     public void UpdateGridPositionCoordinate()

@@ -6,12 +6,6 @@ using UnityEngine.UI;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform spawnObjectParent;
-    public Transform SpawnObjectParent
-    {
-        get { return spawnObjectParent; }
-    }
-    [SerializeField]
     private GameObject roomObjectPrefab;
 
     [SerializeField]
@@ -41,13 +35,6 @@ public class RoomManager : MonoBehaviour
     {
         // Create List of objects
         roomObjects = new List<RoomObject>();
-
-        // Create rows for Image sort order
-        for (int y = GridMap.Instance.GridLength - 1; y >= 0; --y)
-        {
-            GameObject o = new GameObject("GridRow" + y);
-            o.transform.parent = spawnObjectParent;
-        }
     }
 
     public bool PlaceRoomObject(GameObject placeholderObject, RoomObject obj, int gridX, int gridY)
@@ -71,17 +58,14 @@ public class RoomManager : MonoBehaviour
         CloneRoomObject(newObject.GetComponent<RoomObject>(), obj);
 
         // Set parent
-        newObject.transform.SetParent(spawnObjectParent.Find("GridRow" + gridY));
+        //newObject.transform.SetParent(GridMap.Instance.SpawnObjectParent.Find("GridRow" + gridY));
+        GridMap.Instance.SetRowSorting(newObject.transform, gridY);
 
         // Copy sprite
         newObject.GetComponent<Image>().sprite = placeholderObject.GetComponent<Image>().sprite;
-        // Set object size
-        //newObject.GetComponent<RectTransform>().sizeDelta = new Vector2(GridMap.Instance.GridSize * obj.SpriteWidth, GridMap.Instance.GridSize * obj.SpriteHeight);
 
         // Set position
         newObject.GetComponent<RoomObject>().SetGridPosition(gridX, gridY);
-        // Set offset position
-        //newObject.transform.position += new Vector3((obj.SpriteWidth - 1) * 0.5f * GridMap.Instance.GridSize, (obj.SpriteHeight - 1) * 0.5f * GridMap.Instance.GridSize);
 
         // Add to List & Occupancy Grid
         AddObjectToList(newObject.GetComponent<RoomObject>(), gridX, gridY);

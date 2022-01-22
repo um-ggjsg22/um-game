@@ -33,28 +33,17 @@ public class ObjectPool : MonoBehaviour
         
     }
 
-    public RoomObject SpawnObject(string name, int gridX, int gridY, Transform parent)
+    public RoomObject SpawnObject(string name, int gridX, int gridY)
     {
         // Instantiate object
         GameObject newObject = Instantiate(objectsDict[name].gameObject);
         newObject.SetActive(true);
 
-        // Set parent
-        newObject.transform.SetParent(parent.Find("GridRow" + gridY));
-
         RoomObject roomObjectScript = newObject.GetComponent<RoomObject>();
-
         // Set object size
-        newObject.GetComponent<RectTransform>().sizeDelta = new Vector2(GridMap.Instance.GridSize * roomObjectScript.SpriteWidth,
-            GridMap.Instance.GridSize * roomObjectScript.SpriteHeight);
-
+        roomObjectScript.SetObjectSize();
         // Set position
-        roomObjectScript.SetGridPosition(gridX, gridY);
-        // Set offset position
-        /*newObject.transform.position += new Vector3(
-            (roomObjectScript.SpriteWidth - 1) * 0.5f * GridMap.Instance.GridSize,
-            (roomObjectScript.SpriteHeight - 1) * 0.5f * GridMap.Instance.GridSize
-            );*/
+        roomObjectScript.SetGridPosition(gridX, gridY, false);
 
         return roomObjectScript;
     }

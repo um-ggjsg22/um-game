@@ -8,12 +8,15 @@ public class GridMap : MonoBehaviour
     public static GridMap Instance { get { return instance; } }
 
     [SerializeField]
+    private Transform spawnObjectParent;
+    public Transform SpawnObjectParent
+    {
+        get { return spawnObjectParent; }
+    }
+
+    [SerializeField]
     [Tooltip("Reference to Runner object")]
     private Runner runner;
-    [SerializeField]
-    private int startGridX = 2;
-    [SerializeField]
-    private int startGridY = 0;
 
     [SerializeField]
     private int gridLength = 13;
@@ -53,12 +56,12 @@ public class GridMap : MonoBehaviour
         occupancyGrid[x, y] = null;
     }
 
-    public bool IsOccupied(int gridX, int gridY)
+    public bool IsOccupied(RoomObject obj, int gridX, int gridY)
     {
         if (gridX < 0 || gridX >= GridLength || gridY < 0 || gridY >= GridLength)
             return true;
 
-        return (occupancyGrid[gridX, gridY] != null);
+        return !((occupancyGrid[gridX, gridY] == null) || (occupancyGrid[gridX, gridY] == obj));
     }
 
     // Start is called before the first frame update
@@ -83,6 +86,13 @@ public class GridMap : MonoBehaviour
             }
         }
 
+        // Create rows for Image sort order
+        for (int y = GridMap.Instance.GridLength - 1; y >= 0; --y)
+        {
+            GameObject o = new GameObject("GridRow" + y);
+            o.transform.parent = spawnObjectParent;
+        }
+
         // Calculate info about the grids
         gridSize = floor.GetComponent<RectTransform>().sizeDelta.x / gridLength;
         startPos = new Vector3(floor.transform.position.x - gridLength * 0.5f * gridSize + 0.5f * gridSize, floor.transform.position.y - gridLength * 0.5f * gridSize + 0.5f * gridSize);
@@ -91,9 +101,6 @@ public class GridMap : MonoBehaviour
         if (runner != null)
         {
             runner.GetComponent<RectTransform>().sizeDelta = new Vector2(gridSize, gridSize);
-            // Set Runner's start position
-            //runner.transform.position = GetPositionCoordinate(startGridX, startGridY);
-            runner.SetGridPosition(startGridX, startGridY);
         }
 
         floorMinPos = floor.transform.position - 0.5f * (Vector3)floor.GetComponent<RectTransform>().sizeDelta;
@@ -140,5 +147,10 @@ public class GridMap : MonoBehaviour
     public Vector2 GetRunnerPosition()
     {
         return runner.GetGridPosition();
+    }
+
+    public void SetRowSorting(Transform obj, int gridY)
+    {
+        obj.SetParent(SpawnObjectParent.Find("GridRow" + gridY));
     }
 }
