@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Net;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
+using Random = UnityEngine.Random;
 
 public class GameCursor : MonoBehaviour
 {
@@ -20,11 +22,14 @@ public class GameCursor : MonoBehaviour
     [Tooltip("Sets the minimum 'drag distance' before a click is considered a drag")]
     [SerializeField] private float minDragDistanceThreshold = 10;
 
-    [Tooltip("What multipler does a slow apply")]
+    [Tooltip("What multiplier does a slow apply")]
     [SerializeField] private float slowFactor = 0.8f;
 
-    [Tooltip(("How probable is random teleportation per 10 ticks out of 1000000"))] 
-    [SerializeField] private int teleportProbability = 1000;
+    [Tooltip("How probable is random teleportation out of 1")] 
+    [SerializeField] private float teleportProbability = 0.002f;
+
+    [Tooltip("What is the minimum duration between teleports in 100ms")] [SerializeField]
+    private int _teleportCooldown = 5;
 
     /* ==================================
      *   STATE
@@ -46,16 +51,19 @@ public class GameCursor : MonoBehaviour
     private CursorState _state => _realState.GetState();
     
     // Get min and max pixel coordinates of grid
-    private Vector3 _gridBottomLeft = GridManager.GetGridBottomLeft();
-    private Vector3 _gridTopRight = GridManager.GetGridTopRight();
+    private Vector3 _gridBottomLeft = Vector3.negativeInfinity;
+    private Vector3 _gridTopRight = Vector3.negativeInfinity;
+    private float _mapWidth;
+    private float _mapHeight;
     
     //TODO: Add support for debuff penalties
-    // Debuff states
+    // Debuff state durations in 100ms
     private int _slowDurationLeft = 0;
     private int _teleportDurationLeft = 0;
     private int _freezeDurationLeft = 0;
     private int _invertDurationLeft = 0;
     private int _flipAxesDurationLeft = 0;
+    private int _teleportCooldownLeft = 0;
     
 
     // Start is called before the first frame update
@@ -66,23 +74,32 @@ public class GameCursor : MonoBehaviour
         _gridPosition = new Vector2(0, 0);
         transform.position = new Vector3(0, 0, 0);
         _dragPenalty = TileUnderCursor.DragPenalty();
+        _gridBottomLeft = GridManager.GetGridBottomLeft();
+        _gridTopRight = GridManager.GetGridTopRight();
+        _mapWidth = _gridTopRight.x - _gridBottomLeft.x;
+        _mapHeight = _gridTopRight.y - _gridBottomLeft.y;
+        StartCoroutine(TickDownDebuffs());
     }
 
     // Update is called once per frame
     void Update()
     {
-        TickDownDebuffs();
         UpdateCursorPosition();
         UpdateCursorState();
     }
     
-    private void TickDownDebuffs()
+    private IEnumerator TickDownDebuffs()
     {
-        if(_slowDurationLeft > 0)_slowDurationLeft -= 1;
-        if(_teleportDurationLeft > 0)_teleportDurationLeft -= 1;
-        if(_freezeDurationLeft > 0)_freezeDurationLeft -= 1;
-        if(_invertDurationLeft > 0)_invertDurationLeft -= 1;
-        if(_flipAxesDurationLeft > 0)_flipAxesDurationLeft -= 1;
+        while (true)
+        {
+            if (_slowDurationLeft > 0) _slowDurationLeft -= 1;
+            if (_teleportDurationLeft > 0) _teleportDurationLeft -= 1;
+            if (_freezeDurationLeft > 0) _freezeDurationLeft -= 1;
+            if (_invertDurationLeft > 0) _invertDurationLeft -= 1;
+            if (_flipAxesDurationLeft > 0) _flipAxesDurationLeft -= 1;
+            if (_teleportCooldownLeft > 0) _teleportCooldownLeft -= 1;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void UpdateCursorPosition()
@@ -93,24 +110,57 @@ public class GameCursor : MonoBehaviour
         // Skip movement for freeze
         if (_freezeDurationLeft > 0) return;
 
-        //TODO work with coroutines tohhhhh
-        if (_teleportDurationLeft > 0) ;
-        // Get mouse movement
-        var aX = Input.GetAxis("Mouse X");
-        var aY = Input.GetAxis("Mouse Y");
-        
-        // Compute actual cursor movement factoring in slow
-        var xMove = baseXSpeed * aX * Time.deltaTime 
-                    * (_state is CursorState.Idle ? 1 : _dragPenalty)
-                    * (_slowDurationLeft > 0 ? 1 : slowFactor);
-        var yMove = baseYSpeed * aY * Time.deltaTime 
-                    * (_state is CursorState.Idle ? 1 : _dragPenalty)
-                    * (_slowDurationLeft > 0 ? 1 : slowFactor);
-        
-        // Update cursor position
-        var position = CurrentCursorPosition;
-        position += new Vector3(xMove, yMove, 0);
-        position = CorrectPositionForBounds(position);
+        Vector3 position;
+        Debug.Log($"Current Pos: {CurrentCursorPosition}");
+        // Teleport for teleport
+        if (_teleportDurationLeft > 0 && _teleportCooldownLeft == 0 && Random.value < teleportProbability)
+        {
+            position = new Vector3(_gridBottomLeft.x + Random.value * _mapWidth,
+                _gridBottomLeft.y + Random.value * _mapHeight);
+            _dragPenalty = 1;
+            if(Input.GetMouseButton(0)) _realState = Dragging.State(EmptySquare.At(Vector2.negativeInfinity));
+            else _realState = Idle.State();
+            _teleportCooldownLeft = _teleportCooldown;
+        }
+        else
+        {
+            // Get mouse movement
+            var aX = Input.GetAxis("Mouse X");
+            var aY = Input.GetAxis("Mouse Y");
+
+            // Compute actual cursor movement factoring in slow
+            var xMove = baseXSpeed * aX * Time.deltaTime
+                        * (_state is CursorState.Idle ? 1 : _dragPenalty)
+                        * (_slowDurationLeft > 0 ? 1 : slowFactor);
+            var yMove = baseYSpeed * aY * Time.deltaTime
+                        * (_state is CursorState.Idle ? 1 : _dragPenalty)
+                        * (_slowDurationLeft > 0 ? 1 : slowFactor);
+
+            Vector3 offsetVector;
+            // Update cursor position
+            // Check if axes are flipped
+            if (_flipAxesDurationLeft > 0)
+            {
+                offsetVector = new Vector3(yMove, xMove, 0);
+            }
+            else
+            {
+                offsetVector = new Vector3(xMove, yMove, 0);
+            }
+
+            // Check if axes are inverted
+            if (_invertDurationLeft > 0)
+            {
+                position = CurrentCursorPosition - offsetVector;
+            }
+            else
+            {
+                position = CurrentCursorPosition + offsetVector;
+            }
+
+            position = CorrectPositionForBounds(position);
+        }
+
         transform.position = position;
         
         // Check if grid square changed
@@ -123,11 +173,6 @@ public class GameCursor : MonoBehaviour
         _gridPosition = (Vector2)newPos;
     }
     
-    private void UpdateCursorState()
-    {
-        _realState = _realState.NextState(this);
-    }
-
     private Vector3 CorrectPositionForBounds(Vector3 position)
     {
         if (position.y > _gridTopRight.y) position.y = _gridTopRight.y;
@@ -136,6 +181,41 @@ public class GameCursor : MonoBehaviour
         else if (position.x < _gridBottomLeft.x) position.x = _gridBottomLeft.x;
         return position;
     }
+    
+    private void UpdateCursorState()
+    {
+        _realState = _realState.NextState(this);
+    }
+
+    /** ==================
+     * APPLY DEBUFFS FUNCTIONS
+     *  ==================*/
+    public void ApplySlow(int durationInSecs)
+    {
+        _slowDurationLeft = durationInSecs * 10;
+    }
+    
+    public void ApplyFreeze(int durationInSecs)
+    {
+        _freezeDurationLeft = durationInSecs * 10;
+    }
+    
+    public void ApplyTeleport(int durationInSecs)
+    {
+        _teleportDurationLeft = durationInSecs * 10;
+    }
+    
+    public void ApplyInvert(int durationInSecs)
+    {
+        _invertDurationLeft = durationInSecs * 10;
+    }
+    
+    public void ApplyFlip(int durationInSecs)
+    {
+        _flipAxesDurationLeft = durationInSecs * 10;
+    }
+
+
     
     // Properties to simplify code
     private static bool LeftClick => Input.GetMouseButtonDown(0);
@@ -302,13 +382,14 @@ public static class GridManager
     [CanBeNull]
     public static Vector2? GetGridPosition(Vector2 rawCoords)
     {
+        return Vector2.zero;
         return GridMap.Instance.GetGridCoordinate(rawCoords);
     }
     [CanBeNull]
     public static IHunterInteractable GetInteractable(Vector2 position)
     {
-        throw new NotImplementedException();
-
+        //TODO
+        return null;
     }
 
     public static Vector2 GetRunnerPosition()
