@@ -8,6 +8,8 @@ public class EditorCursor : MonoBehaviour
     [SerializeField]
     private GridMap gridMap;
     [SerializeField]
+    private RoomManager roomManager;
+    [SerializeField]
     private Image highlightedGrid;
     [SerializeField]
     private Image gridNotAllowedIndicator;
@@ -78,10 +80,27 @@ public class EditorCursor : MonoBehaviour
                 if (IsObjectSelected)
                 {
                     // Check if object placement is valid
-                    if (gridX + selectedObject.BaseWidth - 1 >= gridMap.GridLength || gridY + selectedObject.BaseHeight - 1 >= gridMap.GridLength)
+                    if (gridX + selectedObject.BaseWidth - 1 >= gridMap.GridLength || gridY + selectedObject.BaseHeight - 1 >= gridMap.GridLength)  // invalid
                         gridNotAllowedIndicator.gameObject.SetActive(true);
                     else
+                    {
                         gridNotAllowedIndicator.gameObject.SetActive(false);
+
+                        // Check for click
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            // Place down object
+                            roomManager.PlaceRoomObject(placeholderObject.gameObject, selectedObject, gridX, gridY);
+                        }
+                    }
+                }
+
+                // Check for delete object
+                if (Input.GetMouseButton(1))
+                {
+                    Debug.Log("RMB click");
+                    // Check against occupancy grid for an object
+                    roomManager.RemoveRoomObject(gridX, gridY);
                 }
             }
         }
