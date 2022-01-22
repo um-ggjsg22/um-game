@@ -4,6 +4,7 @@ using System.Net;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Cursor = UnityEngine.Cursor;
 using Random = UnityEngine.Random;
 
@@ -14,22 +15,22 @@ public class GameCursor : MonoBehaviour
      *  ================================== */    
     
     [Tooltip("Sets the base cursor speed in the X direction")]
-    [SerializeField] private float baseXSpeed = 240;
+    [SerializeField] private float baseXSpeed = 1000;
 
     [Tooltip("Sets the base cursor speed in the Y direction")]
-    [SerializeField] private float baseYSpeed = 240;
+    [SerializeField] private float baseYSpeed = 1000;
 
     [Tooltip("Sets the minimum 'drag distance' before a click is considered a drag")]
-    [SerializeField] private float minDragDistanceThreshold = 10;
+    [SerializeField] private float minDragDistanceThreshold = 10000;
 
     [Tooltip("What multiplier does a slow apply")]
-    [SerializeField] private float slowFactor = 0.8f;
+    [SerializeField] private float slowFactor = 0.6f;
 
     [Tooltip("How probable is random teleportation out of 1")] 
     [SerializeField] private float teleportProbability = 0.002f;
 
-    [Tooltip("What is the minimum duration between teleports in 100ms")] [SerializeField]
-    private int _teleportCooldown = 5;
+    [FormerlySerializedAs("_teleportCooldown")] [Tooltip("What is the minimum duration between teleports in 100ms")] [SerializeField]
+    private int teleportCooldown = 5;
 
     /* ==================================
      *   STATE
@@ -120,7 +121,7 @@ public class GameCursor : MonoBehaviour
             _dragPenalty = 1;
             if(Input.GetMouseButton(0)) _realState = Dragging.State(EmptySquare.At(Vector2.negativeInfinity));
             else _realState = Idle.State();
-            _teleportCooldownLeft = _teleportCooldown;
+            _teleportCooldownLeft = teleportCooldown;
         }
         else
         {
@@ -294,22 +295,22 @@ public class GameCursor : MonoBehaviour
     {
         // Position where clicking started
         private Vector3 _initialCursorPosition = Vector3.zero;
+        private IHunterInteractable _tile = EmptySquare.At(Vector2.negativeInfinity);
         public CursorState GetState() => CursorState.MouseDown;
         public ICursorStateMachine NextState(GameCursor cursor)
         {
-            // Retrieve the tile under the cursor
-            var tile = cursor.TileUnderCursor;
             // If mouse button released, transit to idle
             if (LeftUp)
             {
-                if(tile is IClickable clickedTile) clickedTile.OnClick();
+                if(_tile is IClickable clickedTile) clickedTile.OnClick();
                 return Idle.State();
             }
 
             // If the cursor exited the grid or exceeds the bounds from where the click started, transit to dragging
             if (cursor._hasCrossedGridSquare || ExceedBounds(cursor))
             {
-                return Dragging.State(tile).NextState(cursor);
+                Debug.Log(cursor.TileUnderCursor is IDraggable);
+                return Dragging.State(_tile).NextState(cursor);
             }
 
             // Otherwise stay in MouseDown state
@@ -328,6 +329,7 @@ public class GameCursor : MonoBehaviour
         public static MouseDown State(Vector3 cursorCoords)
         {
             _mouseDown._initialCursorPosition = cursorCoords;
+            _mouseDown._tile = GridManager.GetInteractable((Vector2)GridManager.GetGridPosition(cursorCoords));
             return _mouseDown;
         }
 
@@ -341,9 +343,11 @@ public class GameCursor : MonoBehaviour
 
         public ICursorStateMachine NextState(GameCursor cursor)
         {
+            Debug.Log($"Tile Under Drag: {_tileUnderDrag}, IsDraggable {_tileUnderDrag is IDraggable}, HasCrossed {cursor._hasCrossedGridSquare}");
             // If the cursor has crossed the grid square, and is draggable
             if (_tileUnderDrag is IDraggable draggedTile && cursor._hasCrossedGridSquare)
             {
+                Debug.Log("Attempt Drag");
                 // Get current tile under cursor and try to move object
                 var tileUnderCursor = cursor.TileUnderCursor;
                 var moveResult = draggedTile.OnMove(cursor._gridPosition);
@@ -382,14 +386,13 @@ public static class GridManager
     [CanBeNull]
     public static Vector2? GetGridPosition(Vector2 rawCoords)
     {
-        return Vector2.zero;
         return GridMap.Instance.GetGridCoordinate(rawCoords);
     }
     [CanBeNull]
     public static IHunterInteractable GetInteractable(Vector2 position)
     {
-        //TODO
-        return null;
+        //Debug.Log(GridMap.Instance.OccupancyGrid((int)position.x, (int)position.y) is IDraggable);
+        return GridMap.Instance.OccupancyGrid((int)position.x, (int)position.y);
     }
 
     public static Vector2 GetRunnerPosition()
@@ -407,10 +410,21 @@ public static class GridManager
         return GridMap.Instance.FloorMaxCoordinate();
     }
 
-    public static bool IsGridOccupied(RoomObject currObject)
+    public static bool IsGridOccupied(RoomObject currObject, Vector2 coordinate)
+    {
+        return GridMap.Instance.IsOccupied(currObject, (int)coordinate.x, (int)coordinate.y);
+    }
+    
+    public static bool MoveObject(RoomObject currObject, Vector2 coordinate)
     {
         //TODO
-        // Check that each square is either empty or occupied by currObject
-        throw new NotImplementedException();
+        // Update occupancy grid with new pos
+        return currObject.SetGridPosition((int)coordinate.x, (int)coordinate.y);
+    }
+
+    public static Vector3 GetPositionCoordinate(Vector2 gridSquare, RoomObject obj = null)
+    {
+        if (obj is null) return GridMap.Instance.GetPositionCoordinate((int)gridSquare.x, (int)gridSquare.y);
+        return GridMap.Instance.GetPositionCoordinate((int)gridSquare.x, (int)gridSquare.y) + new Vector3((obj.SpriteWidth - 1) * 0.5f * GridMap.Instance.GridSize, (obj.SpriteHeight - 1) * 0.5f * GridMap.Instance.GridSize);
     }
 }

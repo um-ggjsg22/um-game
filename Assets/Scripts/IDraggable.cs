@@ -13,7 +13,7 @@ public static class DragHelperMethods
         {
             for (var j = 0; j < obj.BaseHeight; j++)
             {
-                if (GridManager.IsGridOccupied(obj)) return false;
+                if (GridManager.IsGridOccupied(obj, bottomLeftCoord + new Vector2(i, j))) return false;
             }
         }
         return true;
