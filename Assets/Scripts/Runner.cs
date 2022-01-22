@@ -35,4 +35,9 @@ public class Runner : MonoBehaviour
 
         gridPositionComponent.UpdateGridPositionCoordinate();
     }
+
+    public Vector2 GetGridPosition()
+    {
+        return new Vector2(GetComponent<GridPosition>().PosX, GetComponent<GridPosition>().PosY);
+    }
 }

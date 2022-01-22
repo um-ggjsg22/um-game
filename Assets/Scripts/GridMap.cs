@@ -8,6 +8,10 @@ public class GridMap : MonoBehaviour
     public static GridMap Instance { get { return instance; } }
 
     [SerializeField]
+    [Tooltip("Reference to Runner object")]
+    private Runner runner;
+
+    [SerializeField]
     private int gridLength = 13;
     public int GridLength
     {
@@ -70,5 +74,10 @@ public class GridMap : MonoBehaviour
     public Vector3 GetPositionCoordinate(int x, int y)
     {
         return startPos + new Vector3(x * gridSize, y * gridSize);
+    }
+
+    public Vector2 GetRunnerPosition()
+    {
+        return runner.GetGridPosition();
     }
 }
