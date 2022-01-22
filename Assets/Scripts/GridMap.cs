@@ -18,6 +18,10 @@ public class GridMap : MonoBehaviour
     private GameObject floor;
 
     private float gridSize; // in pixels
+    public float GridSize
+    {
+        get { return gridSize; }
+    }
     private Vector3 startPos;   // grid 0,0
 
     [SerializeField]
@@ -41,12 +45,23 @@ public class GridMap : MonoBehaviour
 
         // Spawn smth at start pos
         startTest.position = startPos;
+
+        // TODO: get all "grid objects", resize everything according to the computed grid size
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public Vector2 GetGridCoordinate(Vector3 pos)
+    {
+        int gridX = Mathf.Max(0, Mathf.FloorToInt((pos.x - floor.transform.position.x + gridLength * 0.5f * (gridSize - 1)) / gridSize));
+        int gridY = Mathf.Max(0, Mathf.FloorToInt((pos.y - floor.transform.position.y + gridLength * 0.5f * (gridSize - 1)) / gridSize));
+
+        return new Vector2(gridX, gridY);
     }
 
     public Vector3 GetPositionCoordinate(int x, int y)
