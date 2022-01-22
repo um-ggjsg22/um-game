@@ -16,6 +16,12 @@ public class GridPosition : MonoBehaviour
     }
 
     // Start is called before the first frame update
+    public GridPosition(int posX, int posY)
+    {
+        this.posX = posX;
+        this.posY = posY;
+    }
+
     void Start()
     {
         

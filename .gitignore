@@ -37,3 +37,5 @@ Assets/WSATestCertificate.pfx
 # Other
 .vsconfig
 UpgradeLog.htm
+
+.idea
