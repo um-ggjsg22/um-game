@@ -111,7 +111,7 @@ public class GameCursor : MonoBehaviour
         if (_freezeDurationLeft > 0) return;
 
         Vector3 position;
-        Debug.Log($"Current Pos: {CurrentCursorPosition}");
+        //Debug.Log($"Current Pos: {CurrentCursorPosition}");
         // Teleport for teleport
         if (_teleportDurationLeft > 0 && _teleportCooldownLeft == 0 && Random.value < teleportProbability)
         {

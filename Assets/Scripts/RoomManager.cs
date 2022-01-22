@@ -7,6 +7,10 @@ public class RoomManager : MonoBehaviour
 {
     [SerializeField]
     private Transform spawnObjectParent;
+    public Transform SpawnObjectParent
+    {
+        get { return spawnObjectParent; }
+    }
     [SerializeField]
     private GameObject roomObjectPrefab;
 
@@ -35,7 +39,7 @@ public class RoomManager : MonoBehaviour
     private RoomObject[,] occupancyGrid;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Create List of objects
         roomObjects = new List<RoomObject>();
@@ -79,7 +83,7 @@ public class RoomManager : MonoBehaviour
         CloneRoomObject(newObject.GetComponent<RoomObject>(), obj);
 
         // Set parent
-        newObject.transform.parent = spawnObjectParent.Find("GridRow" + gridY);
+        newObject.transform.SetParent(spawnObjectParent.Find("GridRow" + gridY));
 
         // Copy sprite
         newObject.GetComponent<Image>().sprite = placeholderObject.GetComponent<Image>().sprite;
@@ -91,18 +95,24 @@ public class RoomManager : MonoBehaviour
         // Set offset position
         newObject.transform.position += new Vector3((obj.SpriteWidth - 1) * 0.5f * GridMap.Instance.GridSize, (obj.SpriteHeight - 1) * 0.5f * GridMap.Instance.GridSize);
 
+        // Add to List & Occupancy Grid
+        AddObjectToList(newObject.GetComponent<RoomObject>(), gridX, gridY);
+
+        return true;
+    }
+
+    public void AddObjectToList(RoomObject obj, int gridX, int gridY)
+    {
         // Add to List
-        roomObjects.Add(newObject.GetComponent<RoomObject>());
+        roomObjects.Add(obj);
         // Add to occupancy grid
         for (int i = gridX; i < gridX + obj.BaseWidth; ++i)
         {
             for (int j = gridY; j < gridY + obj.BaseHeight; ++j)
             {
-                occupancyGrid[i, j] = newObject.GetComponent<RoomObject>();
+                occupancyGrid[i, j] = obj;
             }
         }
-
-        return true;
     }
 
     private void CloneRoomObject(RoomObject target, RoomObject source)

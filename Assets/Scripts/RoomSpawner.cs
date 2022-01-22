@@ -14,7 +14,7 @@ public class RoomSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        LoadRoom(0);
     }
 
     public void LoadRoom(int id)
@@ -29,6 +29,13 @@ public class RoomSpawner : MonoBehaviour
         roomManager.WallImage.sprite = Resources.Load<Sprite>(/*"Walls/" + */data.wall);
 
         // 3. Spawn objects
+        foreach (RoomObjectData objData in data.objects)
+        {
+            // Instantiate the object
+            RoomObject roomObject = objectPool.SpawnObject(objData.objectType, objData.gridX, objData.gridY, roomManager.SpawnObjectParent);
 
+            // Add to Object List & Occupancy Grid
+            roomManager.AddObjectToList(roomObject, objData.gridX, objData.gridY);
+        }
     }
 }
