@@ -2,35 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GridPosition))]
 public class Runner : MonoBehaviour
 {
+    private GridPosition gridPositionComponent;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        gridPositionComponent = GetComponent<GridPosition>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            startY = Mathf.Min(gridLength - 1, startY + 1);
+            gridPositionComponent.UpdateGridPosition(0, 1);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            startY = Mathf.Max(0, startY - 1);
+            gridPositionComponent.UpdateGridPosition(0, -1);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            startX = Mathf.Max(0, startX - 1);
+            gridPositionComponent.UpdateGridPosition(-1, 0);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            startX = Mathf.Min(gridLength - 1, startX + 1);
+            gridPositionComponent.UpdateGridPosition(1, 0);
         }
 
-        UpdatePosition();*/
+        gridPositionComponent.UpdateGridPositionCoordinate();
     }
 }

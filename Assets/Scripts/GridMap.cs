@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GridMap : MonoBehaviour
 {
+    private static GridMap instance = null;
+    public static GridMap Instance { get { return instance; } }
+
     [SerializeField]
     private int gridLength = 13;
     public int GridLength
@@ -15,6 +18,10 @@ public class GridMap : MonoBehaviour
     private GameObject floor;
 
     private float gridSize; // in pixels
+    public float GridSize
+    {
+        get { return gridSize; }
+    }
     private Vector3 startPos;   // grid 0,0
 
     [SerializeField]
@@ -23,12 +30,24 @@ public class GridMap : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.Log("GridMap already has an existing instance! Destroying " + gameObject.name);
+            Destroy(gameObject);
+            return;
+        }
+
         // Calculate info about the grids
         gridSize = floor.GetComponent<RectTransform>().sizeDelta.x / gridLength;
         startPos = new Vector3(floor.transform.position.x - gridLength * 0.5f * gridSize + 0.5f * gridSize, floor.transform.position.y - gridLength * 0.5f * gridSize + 0.5f * gridSize);
 
         // Spawn smth at start pos
         startTest.position = startPos;
+
+        // TODO: get all "grid objects", resize everything according to the computed grid size
+
     }
 
     // Update is called once per frame
@@ -37,8 +56,16 @@ public class GridMap : MonoBehaviour
         
     }
 
-    private void SetPosition()
+    public Vector2 GetGridCoordinate(Vector3 pos)
     {
-        //startTest.position = startPos + new Vector3(startX * gridSize, startY * gridSize);
+        int gridX = Mathf.Max(0, Mathf.FloorToInt((pos.x - floor.transform.position.x + gridLength * 0.5f * (gridSize - 1)) / gridSize));
+        int gridY = Mathf.Max(0, Mathf.FloorToInt((pos.y - floor.transform.position.y + gridLength * 0.5f * (gridSize - 1)) / gridSize));
+
+        return new Vector2(gridX, gridY);
+    }
+
+    public Vector3 GetPositionCoordinate(int x, int y)
+    {
+        return startPos + new Vector3(x * gridSize, y * gridSize);
     }
 }
