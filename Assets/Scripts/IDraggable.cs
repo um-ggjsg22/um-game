@@ -2,5 +2,20 @@ using UnityEngine;
 
 public interface IDraggable
 {
-    void OnMove(Vector2 newPosition);
+    bool OnMove(Vector2 newPosition);
+}
+
+public static class DragHelperMethods
+{
+    public static bool CanPlace(this RoomObject obj, Vector2 bottomLeftCoord)
+    {
+        for (var i = 0; i < obj.BaseWidth; i++)
+        {
+            for (var j = 0; j < obj.BaseHeight; j++)
+            {
+                if (GridManager.IsGridOccupied(obj)) return false;
+            }
+        }
+        return true;
+    }
 }

@@ -227,15 +227,11 @@ public class GameCursor : MonoBehaviour
             // If the cursor has crossed the grid square, and is draggable
             if (_tileUnderDrag is IDraggable draggedTile && cursor._hasCrossedGridSquare)
             {
-                // Get current tile under cursor
+                // Get current tile under cursor and try to move object
                 var tileUnderCursor = cursor.TileUnderCursor;
-                // If the tile is empty or is the tile being dragged (multi-tile object) then move object
-                if ((tileUnderCursor is EmptySquare || tileUnderCursor == _tileUnderDrag) && GridManager.GetRunnerPosition() != cursor._gridPosition)
-                {
-                    draggedTile.OnMove(cursor._gridPosition);
-                }
+                var moveResult = draggedTile.OnMove(cursor._gridPosition);
                 // Otherwise drop the dragged item and reset the drag penalty
-                else
+                if(!moveResult)
                 {
                     var empty = EmptySquare.At(Vector2.negativeInfinity);
                     cursor._dragPenalty = empty.DragPenalty();
@@ -291,5 +287,12 @@ public static class GridManager
     public static Vector3 GetGridTopRight()
     {
         return GridMap.Instance.FloorMaxCoordinate();
+    }
+
+    public static bool IsGridOccupied(RoomObject currObject)
+    {
+        //TODO
+        // Check that each square is either empty or occupied by currObject
+        throw new NotImplementedException();
     }
 }
