@@ -43,7 +43,7 @@ public class GameCursor : MonoBehaviour
         //TODO: Set grid position?
         _gridPosition = new Vector2(0, 0);
         transform.position = new Vector3(0, 0, 0);
-        _dragPenalty = TileUnderCursor.DragPenalty;
+        _dragPenalty = TileUnderCursor.DragPenalty();
     }
 
     // Update is called once per frame
@@ -89,21 +89,21 @@ public class GameCursor : MonoBehaviour
     
     
     // Helper for streamlining logic and clarity
-    private HunterInteractableBase TileUnderCursor =>
+    private IHunterInteractable TileUnderCursor =>
         GridManager.GetInteractable(_gridPosition) ?? EmptySquare.At(_gridPosition);
 
     private Vector3 CurrentCursorPosition => transform.position;
     
-    private class EmptySquare : HunterInteractableBase
+    private class EmptySquare : IHunterInteractable
     {
         private Vector2 gridPosition = Vector2.zero;
 
-        public override Vector2 GetGridPosition()
+        public Vector2 GetGridPosition()
         {
             return gridPosition;
         }
 
-        public override float DragPenalty => 1;
+        public float DragPenalty() => 1;
 
         private static EmptySquare _emptySquare = new EmptySquare();
 
@@ -136,7 +136,7 @@ public class GameCursor : MonoBehaviour
             // Check tile below cursor
             var tile = cursor.TileUnderCursor;
             // Update drag penalty
-            if (cursor._hasCrossedGridSquare) cursor._dragPenalty = tile.DragPenalty;
+            if (cursor._hasCrossedGridSquare) cursor._dragPenalty = tile.DragPenalty();
             // If click, transition to MouseDown state
             if (LeftClick)
             {
@@ -201,7 +201,7 @@ public class GameCursor : MonoBehaviour
     
     private sealed class Dragging:ICursorStateMachine
     {
-        private HunterInteractableBase _tileUnderDrag = EmptySquare.At(Vector2.zero);
+        private IHunterInteractable _tileUnderDrag = EmptySquare.At(Vector2.zero);
         public CursorState GetState() => CursorState.Dragging;
 
         public ICursorStateMachine NextState(GameCursor cursor)
@@ -230,7 +230,7 @@ public class GameCursor : MonoBehaviour
         // Singleton design
         private static readonly Dragging _dragging = new Dragging();
 
-        public static ICursorStateMachine State(HunterInteractableBase tileUnderDrag, GameCursor cursor)
+        public static ICursorStateMachine State(IHunterInteractable tileUnderDrag, GameCursor cursor)
         {
             _dragging._tileUnderDrag = tileUnderDrag;
             return _dragging.NextState(cursor);
@@ -247,7 +247,7 @@ public static class GridManager
         return GridMap.Instance.GetGridCoordinate(rawCoords);
     }
     [CanBeNull]
-    public static HunterInteractableBase GetInteractable(Vector2 position)
+    public static IHunterInteractable GetInteractable(Vector2 position)
     {
         throw new NotImplementedException();
 

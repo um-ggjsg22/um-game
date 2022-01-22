@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomObject : MonoBehaviour
+[RequireComponent(typeof(GridPosition))]
+public class RoomObject : MonoBehaviour, IHunterInteractable
 {
     [SerializeField]
     private int spriteWidth;
@@ -41,4 +42,11 @@ public class RoomObject : MonoBehaviour
     {
         
     }
+
+    public Vector2 GetGridPosition()
+    {
+        return new Vector2(GetComponent<GridPosition>().PosX, GetComponent<GridPosition>().PosY);
+    }
+
+    public float DragPenalty() => 1;
 }
