@@ -63,12 +63,12 @@ public class GridMap : MonoBehaviour
     public Vector3 FloorMinCoordinate()
     {
         // TODO: implement this
-        return Vector3.zero;
+        return new Vector3(0.1f, 0.1f, 0f);
     }
     public Vector3 FloorMaxCoordinate()
     {
         // TODO: implement this
-        return Vector3.zero;
+        return new Vector3(100f, 100f, 0f);
     }
 
     public Vector2? GetGridCoordinate(Vector3 pos)
