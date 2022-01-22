@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IDraggable
 {
-    bool OnMove(Vector2 newPosition);
+    bool OnMove(Vector2 transitionVector);
 }
 
 public static class DragHelperMethods

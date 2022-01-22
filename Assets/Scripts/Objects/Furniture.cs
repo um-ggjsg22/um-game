@@ -21,10 +21,11 @@ public class Furniture : RoomObject, IDraggable
 
     }
 
-    public bool OnMove(Vector2 newPosition)
+    public bool OnMove(Vector2 transitionVector)
     {
         if (_isAnimating) return false;
-        if (Vector2.Distance(this.GetGridPosition(), newPosition) > 1) return false;
+        if (transitionVector.magnitude > 1) return false;
+        var newPosition = GetGridPosition() + transitionVector;
         if(!this.CanPlace(newPosition)) return false;
         StartCoroutine(AnimateMovement(GridManager.GetPositionCoordinate(newPosition, this)));
         GridManager.MoveObject(this, newPosition);

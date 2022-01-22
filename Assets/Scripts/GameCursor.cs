@@ -119,7 +119,7 @@ public class GameCursor : MonoBehaviour
             position = new Vector3(_gridBottomLeft.x + Random.value * _mapWidth,
                 _gridBottomLeft.y + Random.value * _mapHeight);
             _dragPenalty = 1;
-            if(Input.GetMouseButton(0)) _realState = Dragging.State(EmptySquare.At(Vector2.negativeInfinity));
+            if(Input.GetMouseButton(0)) _realState = Dragging.State(CurrentCursorPosition, EmptySquare.At(Vector2.negativeInfinity));
             else _realState = Idle.State();
             _teleportCooldownLeft = teleportCooldown;
         }
@@ -310,7 +310,7 @@ public class GameCursor : MonoBehaviour
             if (cursor._hasCrossedGridSquare || ExceedBounds(cursor))
             {
                 Debug.Log(cursor.TileUnderCursor is IDraggable);
-                return Dragging.State(_tile).NextState(cursor);
+                return Dragging.State(_initialCursorPosition, _tile).NextState(cursor);
             }
 
             // Otherwise stay in MouseDown state
@@ -338,6 +338,7 @@ public class GameCursor : MonoBehaviour
     
     private sealed class Dragging:ICursorStateMachine
     {
+        private Vector3 _initialCursorPosition;
         private IHunterInteractable _tileUnderDrag = EmptySquare.At(Vector2.negativeInfinity);
         public CursorState GetState() => CursorState.Dragging;
 
@@ -347,16 +348,23 @@ public class GameCursor : MonoBehaviour
             // If the cursor has crossed the grid square, and is draggable
             if (_tileUnderDrag is IDraggable draggedTile && cursor._hasCrossedGridSquare)
             {
-                Debug.Log("Attempt Drag");
-                // Get current tile under cursor and try to move object
-                var tileUnderCursor = cursor.TileUnderCursor;
-                var moveResult = draggedTile.OnMove(cursor._gridPosition);
+                var diff = cursor._gridPosition - (Vector2)GridManager.GetGridPosition(_initialCursorPosition);
+                var transitionVec = Vector2.zero;
+                if (diff.x*diff.x > diff.y*diff.y)
+                {
+                    transitionVec = new Vector2(diff.x, 0).normalized;
+                }
+                else
+                {
+                    transitionVec = new Vector2(0, diff.y).normalized;
+                }
+                var moveResult = draggedTile.OnMove(transitionVec);
                 // Otherwise drop the dragged item and reset the drag penalty
                 if(!moveResult)
                 {
                     var empty = EmptySquare.At(Vector2.negativeInfinity);
                     cursor._dragPenalty = empty.DragPenalty();
-                    return Dragging.State(empty);
+                    return Dragging.State(cursor.CurrentCursorPosition, empty);
                 }
             }
             // If release cursor, return to idle state
@@ -372,8 +380,9 @@ public class GameCursor : MonoBehaviour
         // Singleton design
         private static readonly Dragging _dragging = new Dragging();
 
-        public static Dragging State(IHunterInteractable tileUnderDrag)
+        public static Dragging State(Vector3 initialCursorPosition, IHunterInteractable tileUnderDrag)
         {
+            _dragging._initialCursorPosition = initialCursorPosition;
             _dragging._tileUnderDrag = tileUnderDrag;
             return _dragging;
         }
@@ -391,8 +400,7 @@ public static class GridManager
     [CanBeNull]
     public static IHunterInteractable GetInteractable(Vector2 position)
     {
-        //Debug.Log(GridMap.Instance.OccupancyGrid((int)position.x, (int)position.y) is IDraggable);
-        return GridMap.Instance.OccupancyGrid((int)position.x, (int)position.y);
+        return GridMap.Instance.GetInteractable((int)position.x, (int)position.y);
     }
 
     public static Vector2 GetRunnerPosition()

@@ -56,6 +56,17 @@ public class GridMap : MonoBehaviour
         occupancyGrid[x, y] = null;
     }
 
+    public RoomObject GetInteractable(int x, int y)
+    {
+        for (var decr = 0; y - decr > 0; decr++)
+        {
+            var grid = OccupancyGrid(x, y);
+            if (!(grid is null) && grid.BaseHeight > decr) return grid;
+        }
+
+        return null;
+    }
+
     public bool IsOccupied(RoomObject obj, int gridX, int gridY)
     {
         if (gridX < 0 || gridX >= GridLength || gridY < 0 || gridY >= GridLength)
