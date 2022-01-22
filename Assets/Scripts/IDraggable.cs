@@ -1,4 +1,6 @@
-public interface IDraggable : IHunterInteractable
+using UnityEngine;
+
+public interface IDraggable
 {
-    float GetDragPenalty();
+    void OnMove(Vector2 newPosition);
 }

@@ -1,4 +1,4 @@
-public interface IClickable : IHunterInteractable
+public interface IClickable
 {
-    void ExecuteClickEffect();
+    void OnClick();
 }
