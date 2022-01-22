@@ -61,8 +61,7 @@ public class GridMap : MonoBehaviour
         for (var ymin = 0; ymin <= y; ymin++)
         {
             var grid = OccupancyGrid(x, ymin);
-            Debug.Log($"X {x} Y {ymin} Predicate {!(grid is null) && grid.BaseHeight > y-ymin}");
-            if (!(grid is null) && grid.BaseHeight > y-ymin) return grid;
+            if (!(grid is null) && grid.SpriteHeight > y-ymin) return grid;
         }
 
         return null;
