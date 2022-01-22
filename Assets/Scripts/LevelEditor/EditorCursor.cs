@@ -56,18 +56,21 @@ public class EditorCursor : MonoBehaviour
         {
             // Check which grid the cursor is on
             Vector2 mousePos = Input.mousePosition;
-            Vector2 gridCoord = gridMap.GetGridCoordinate(mousePos);
+            Vector2 gridCoord = gridMap.GetGridCoordinate(mousePos) ?? new Vector2(-1, -1);
 
             gridX = (int)gridCoord.x;
             gridY = (int)gridCoord.y;
 
-            // Get actual position of grid coordinate
-            Vector3 gridPos = gridMap.GetPositionCoordinate(gridX, gridY);
+            if (gridX != -1)    // valid coordinate
+            {
+                // Get actual position of grid coordinate
+                Vector3 gridPos = gridMap.GetPositionCoordinate(gridX, gridY);
 
-            if (isObjectSelected)
-                placeholderObject.transform.position = gridPos;
-            
-            highlightedGrid.transform.position = gridPos; 
+                if (isObjectSelected)
+                    placeholderObject.transform.position = gridPos;
+
+                highlightedGrid.transform.position = gridPos;
+            }
         }
     }
 
@@ -88,6 +91,6 @@ public class EditorCursor : MonoBehaviour
         placeholderObject.GetComponent<RectTransform>().sizeDelta = new Vector2(gridMap.GridSize * obj.SpriteWidth, gridMap.GridSize * obj.SpriteHeight);
 
         // Set offset position
-        placeholderObject.transform.localPosition = new Vector3((obj.SpriteWidth - 1) * 0.5f * gridMap.GridSize, (obj.SpriteHeight - 1) * 0.5f * gridMap.GridSize);
+        placeholderObject.transform.localPosition = new Vector3((obj.SpriteWidth - 1) * gridMap.GridSize, (obj.SpriteHeight - 1) * gridMap.GridSize);
     }
 }

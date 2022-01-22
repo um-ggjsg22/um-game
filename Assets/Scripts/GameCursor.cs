@@ -72,7 +72,7 @@ public class GameCursor : MonoBehaviour
         transform.position = position;
         
         // Check if grid square changed
-        var newPos = GridManager.GetGridPosition(position);
+        var newPos = GridManager.GetGridPosition(position) ?? Vector2.zero; // TODO: CHANGE
         _hasCrossedGridSquare = newPos != _gridPosition;
         _gridPosition = newPos;
     }
@@ -242,9 +242,9 @@ public class GameCursor : MonoBehaviour
 public static class GridManager
 {
     [CanBeNull]
-    public static Vector2 GetGridPosition(Vector2 rawCoords)
+    public static Vector2? GetGridPosition(Vector2 rawCoords)
     {
-        throw new NotImplementedException();
+        return GridMap.Instance.GetGridCoordinate(rawCoords);
     }
     [CanBeNull]
     public static HunterInteractableBase GetInteractable(Vector2 position)

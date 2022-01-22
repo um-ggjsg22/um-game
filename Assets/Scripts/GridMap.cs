@@ -56,10 +56,13 @@ public class GridMap : MonoBehaviour
         
     }
 
-    public Vector2 GetGridCoordinate(Vector3 pos)
+    public Vector2? GetGridCoordinate(Vector3 pos)
     {
-        int gridX = Mathf.Max(0, Mathf.FloorToInt((pos.x - floor.transform.position.x + gridLength * 0.5f * (gridSize - 1)) / gridSize));
-        int gridY = Mathf.Max(0, Mathf.FloorToInt((pos.y - floor.transform.position.y + gridLength * 0.5f * (gridSize - 1)) / gridSize));
+        int gridX = Mathf.FloorToInt((pos.x - floor.transform.position.x + gridLength * 0.5f * (gridSize - 1)) / gridSize);
+        int gridY = Mathf.FloorToInt((pos.y - floor.transform.position.y + gridLength * 0.5f * (gridSize - 1)) / gridSize);
+
+        if (gridX < 0 || gridX >= gridLength || gridY < 0 || gridY >= gridLength)
+            return null;
 
         return new Vector2(gridX, gridY);
     }
