@@ -9,6 +9,8 @@ public class EditorCursor : MonoBehaviour
     private GridMap gridMap;
     [SerializeField]
     private Image highlightedGrid;
+    [SerializeField]
+    private Image placeholderObject;
 
     // the current grid coordinate the cursor is on
     private int gridX;
@@ -18,12 +20,20 @@ public class EditorCursor : MonoBehaviour
     public bool OnGridArea
     {
         get { return onGridArea; }
+        set
+        {
+            onGridArea = value;
+            if (isObjectSelected)
+                placeholderObject.gameObject.SetActive(value);
+
+            highlightedGrid.gameObject.SetActive(value);
+        }
     }
 
-    public void SetOnGridArea(bool onGrid)
+    private bool isObjectSelected = false;
+    public bool IsObjectSelected
     {
-        onGridArea = onGrid;
-        highlightedGrid.gameObject.SetActive(onGrid);
+        get { return isObjectSelected; }
     }
 
     // Start is called before the first frame update
@@ -33,6 +43,9 @@ public class EditorCursor : MonoBehaviour
         highlightedGrid.GetComponent<RectTransform>().sizeDelta = new Vector2(gridMap.GridSize, gridMap.GridSize);
         // Disable first
         highlightedGrid.gameObject.SetActive(false);
+
+        // Disable placeholderObject first
+        placeholderObject.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,7 +62,32 @@ public class EditorCursor : MonoBehaviour
             gridY = (int)gridCoord.y;
 
             // Get actual position of grid coordinate
-            highlightedGrid.transform.position = gridMap.GetPositionCoordinate(gridX, gridY);
+            Vector3 gridPos = gridMap.GetPositionCoordinate(gridX, gridY);
+
+            if (isObjectSelected)
+                placeholderObject.transform.position = gridPos;
+            
+            highlightedGrid.transform.position = gridPos; 
         }
+    }
+
+    public void DeselectObject()
+    {
+        isObjectSelected = false;
+        placeholderObject.gameObject.SetActive(false);
+    }
+
+    public void SelectObject(RoomObject obj)
+    {
+        isObjectSelected = true;
+
+        // Set object sprite
+        placeholderObject.sprite = obj.GetComponent<Image>().sprite;
+
+        // Set object size
+        placeholderObject.GetComponent<RectTransform>().sizeDelta = new Vector2(gridMap.GridSize * obj.SpriteWidth, gridMap.GridSize * obj.SpriteHeight);
+
+        // Set offset position
+        placeholderObject.transform.localPosition = new Vector3((obj.SpriteWidth - 1) * 0.5f * gridMap.GridSize, (obj.SpriteHeight - 1) * 0.5f * gridMap.GridSize);
     }
 }
