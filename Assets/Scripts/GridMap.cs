@@ -60,6 +60,17 @@ public class GridMap : MonoBehaviour
         
     }
 
+    public Vector3 FloorMinCoordinate()
+    {
+        // TODO: implement this
+        return Vector3.zero;
+    }
+    public Vector3 FloorMaxCoordinate()
+    {
+        // TODO: implement this
+        return Vector3.zero;
+    }
+
     public Vector2? GetGridCoordinate(Vector3 pos)
     {
         int gridX = Mathf.FloorToInt((pos.x - floor.transform.position.x + gridLength * 0.5f * (gridSize - 1)) / gridSize);
@@ -71,6 +82,12 @@ public class GridMap : MonoBehaviour
         return new Vector2(gridX, gridY);
     }
 
+    /// <summary>
+    /// Get the screen coordinate of the center of a grid coordinate.
+    /// </summary>
+    /// <param name="x">Grid coordinate X</param>
+    /// <param name="y">Grid coordinate Y</param>
+    /// <returns></returns>
     public Vector3 GetPositionCoordinate(int x, int y)
     {
         return startPos + new Vector3(x * gridSize, y * gridSize);

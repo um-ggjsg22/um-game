@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RoomEditor : MonoBehaviour, IHunterInteractable
+public class RoomEditor : MonoBehaviour
 {
     [SerializeField]
     private RoomManager roomManager;
@@ -27,15 +27,5 @@ public class RoomEditor : MonoBehaviour, IHunterInteractable
     public void SetWallSprite(Image wall)
     {
         roomManager.WallImage.sprite = wall.sprite;
-    }
-
-    public Vector2 GetGridPosition()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public float DragPenalty()
-    {
-        throw new System.NotImplementedException();
     }
 }

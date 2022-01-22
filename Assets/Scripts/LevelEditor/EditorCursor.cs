@@ -10,6 +10,8 @@ public class EditorCursor : MonoBehaviour
     [SerializeField]
     private Image highlightedGrid;
     [SerializeField]
+    private Image gridNotAllowedIndicator;
+    [SerializeField]
     private Image placeholderObject;
 
     // the current grid coordinate the cursor is on
@@ -23,26 +25,29 @@ public class EditorCursor : MonoBehaviour
         set
         {
             onGridArea = value;
-            if (isObjectSelected)
+            if (IsObjectSelected)
                 placeholderObject.gameObject.SetActive(value);
 
             highlightedGrid.gameObject.SetActive(value);
         }
     }
 
-    private bool isObjectSelected = false;
     public bool IsObjectSelected
     {
-        get { return isObjectSelected; }
+        get { return selectedObject != null; }
     }
+
+    private RoomObject selectedObject = null;
 
     // Start is called before the first frame update
     void Start()
     {
         // resize highlightedGrid according to grid size
         highlightedGrid.GetComponent<RectTransform>().sizeDelta = new Vector2(gridMap.GridSize, gridMap.GridSize);
+        gridNotAllowedIndicator.GetComponent<RectTransform>().sizeDelta = new Vector2(gridMap.GridSize, gridMap.GridSize);
         // Disable first
         highlightedGrid.gameObject.SetActive(false);
+        gridNotAllowedIndicator.gameObject.SetActive(false);
 
         // Disable placeholderObject first
         placeholderObject.gameObject.SetActive(false);
@@ -61,28 +66,36 @@ public class EditorCursor : MonoBehaviour
             gridX = (int)gridCoord.x;
             gridY = (int)gridCoord.y;
 
-            if (gridX != -1)    // valid coordinate
+            if (gridX != -1)    // cursor is within the grid space
             {
                 // Get actual position of grid coordinate
                 Vector3 gridPos = gridMap.GetPositionCoordinate(gridX, gridY);
 
-                //if (isObjectSelected)
-                //    placeholderObject.transform.position = gridPos;
-
+                // Update cursor position
                 transform.position = gridPos;
+
+                // If object is selected,
+                if (IsObjectSelected)
+                {
+                    // Check if object placement is valid
+                    if (gridX + selectedObject.BaseWidth - 1 >= gridMap.GridLength || gridY + selectedObject.BaseHeight - 1 >= gridMap.GridLength)
+                        gridNotAllowedIndicator.gameObject.SetActive(true);
+                    else
+                        gridNotAllowedIndicator.gameObject.SetActive(false);
+                }
             }
         }
     }
 
     public void DeselectObject()
     {
-        isObjectSelected = false;
+        selectedObject = null;
         placeholderObject.gameObject.SetActive(false);
     }
 
     public void SelectObject(RoomObject obj)
     {
-        isObjectSelected = true;
+        selectedObject = obj;
 
         // Set object sprite
         placeholderObject.sprite = obj.GetComponent<Image>().sprite;
