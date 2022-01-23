@@ -36,7 +36,7 @@ namespace Objects
         {
             this._position = coord;
             transform.position = GridMap.Instance.GetPositionCoordinate((int)coord.x, (int)coord.y);
-            StartCoroutine(Expire());
+            if(timeToLive > 0) StartCoroutine(Expire());
         }
     }
 }
