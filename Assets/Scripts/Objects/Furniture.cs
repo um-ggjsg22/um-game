@@ -8,6 +8,14 @@ public class Furniture : RoomObject, IDraggable
 
     [Tooltip("Time in seconds it takes for the shifting animation to complete")]
     [SerializeField]private float animationTime = 0.5f;
+
+    [Tooltip("How much to slow the cursor by when dragging this item")]
+    [SerializeField] private float dragMultiplier = 0.7f;
+
+    public override float DragPenalty()
+    {
+        return dragMultiplier;
+    }
     
     // Start is called before the first frame update
     void Start()

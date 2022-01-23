@@ -69,7 +69,7 @@ public class RoomObject : MonoBehaviour, IHunterInteractable
         return new Vector2(gridPosition.PosX, gridPosition.PosY);
     }
 
-    public float DragPenalty() => 1;
+    public virtual float DragPenalty() => 1;
 
 
 
