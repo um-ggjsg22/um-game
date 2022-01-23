@@ -36,6 +36,7 @@ public class ObjectPool : MonoBehaviour
     public RoomObject SpawnObject(string name, int gridX, int gridY)
     {
         // Instantiate object
+        Debug.Log(name);
         GameObject newObject = Instantiate(objectsDict[name].gameObject);
         newObject.SetActive(true);
 
