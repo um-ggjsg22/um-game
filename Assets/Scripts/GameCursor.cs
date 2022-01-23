@@ -239,7 +239,7 @@ public class GameCursor : MonoBehaviour
         if (_teleportDurationLeft == 0)
         {
             // Flip Y-axis
-            transform.localScale = new Vector3(transform.localScale.x, -1f, 1f);
+            transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, 1f);
             StartCoroutine(RemoveTeleportVisual());
         }
 
@@ -253,7 +253,7 @@ public class GameCursor : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
         // Revert Y-axis
-        transform.localScale = new Vector3(transform.localScale.x, 1f, 1f);
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1f);
     }
 
     public void ApplyInvert(int durationInSecs)
@@ -261,7 +261,7 @@ public class GameCursor : MonoBehaviour
         if (_invertDurationLeft == 0)
         {
             // Flip X-axis
-            transform.localScale = new Vector3(-1f, transform.localScale.y, 1f);
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1f);
             StartCoroutine(RemoveInvertVisual());
         }
 

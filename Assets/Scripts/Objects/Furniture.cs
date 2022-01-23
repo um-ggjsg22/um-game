@@ -66,6 +66,9 @@ public class Furniture : RoomObject, IDraggable
         Image imageComponent = GetComponent<Image>();
         imageComponent.sprite = brokenSprite;
 
+        // attach to parent
+        transform.SetParent(transform.parent.parent.Find("Destroyed"));
+
         // TODO: alpha fade out instead
 
         yield return new WaitForSeconds(3f);

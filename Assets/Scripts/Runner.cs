@@ -113,8 +113,7 @@ public class Runner : RoomObject
             // Chop Animation
             GetComponent<Animator>().SetTrigger("Chop");
 
-            if (faceDirection != Direction.Dir_Up)
-                StartCoroutine(ChopAnimation());
+            StartCoroutine(ChopAnimation());
 
             // Chop Behaviour
             GridPosition offset = GetOffsetVector();
