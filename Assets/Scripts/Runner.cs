@@ -188,10 +188,41 @@ public class Runner : RoomObject
     private IEnumerator StunCoroutine(float seconds)
     {
         // TODO: trigger animation SFX
-        AudioManager.instance.PlaySFX("Oof");
+        PlayHurtSFX();
 
         stunCooldown = true;
         yield return new WaitForSeconds(seconds);
         stunCooldown = false;
+    }
+
+    private void PlayHurtSFX()
+    {
+        int rand = Random.Range(0, 6);
+
+        switch (rand)
+        {
+            case 0: AudioManager.instance.PlaySFX("Oof");
+                break;
+            case 1:
+                AudioManager.instance.PlaySFX("Ow");
+                break;
+            case 2:
+                AudioManager.instance.PlaySFX("Ow2");
+                break;
+            case 3:
+                AudioManager.instance.PlaySFX("Ow3");
+                break;
+            case 4:
+                AudioManager.instance.PlaySFX("Ow4");
+                break;
+            case 5:
+                AudioManager.instance.PlaySFX("Ow5");
+                break;
+            case 6:
+                AudioManager.instance.PlaySFX("Ow6");
+                break;
+
+        }
+        
     }
 }

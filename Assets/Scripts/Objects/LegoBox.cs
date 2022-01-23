@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Objects
 {
-    public class LegoBox:RoomObject, IClickable
+    public class LegoBox: Furniture, IClickable
     {
         [SerializeField] private CollidableBase legos;
         [SerializeField] private Transform gameObjectParent;    // for spawning

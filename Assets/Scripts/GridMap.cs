@@ -43,7 +43,6 @@ public class GridMap : MonoBehaviour
     private RoomObject[,] occupancyGrid;
     public RoomObject OccupancyGrid(int x, int y)
     {
-         return null;
         return occupancyGrid[x, y];
     }
     public void UpdateOccupancyGrid(RoomObject obj, int x, int y)
