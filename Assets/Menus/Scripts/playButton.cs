@@ -29,6 +29,10 @@ public class playButton : MonoBehaviour
                 SceneManager.LoadScene("CharacterSelectScene");
             }
         }
+
+        // listen out for secret key
+        if (Input.GetKeyDown(KeyCode.F))
+            SceneManager.LoadScene("LevelEditorScene");
     }
     public void OnButtonPress()
     {
