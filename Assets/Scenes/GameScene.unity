@@ -177,6 +177,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &6029710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +418,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 3
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &47159072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +849,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &209156633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1531,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &308675370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,6 +1625,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &331050739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1999,7 +2004,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 389502322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0567d60dd738f541a673372b6367a0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dbcefe816315fc4e869bdb039cd6135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Candle
@@ -2007,7 +2012,6 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
 --- !u!114 &389502325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2589,6 +2593,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &546376701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3134,6 +3139,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &652652632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3595,6 +3601,7 @@ MonoBehaviour:
   baseWidth: 2
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &737793735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3679,7 +3686,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 743168438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0567d60dd738f541a673372b6367a0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dbcefe816315fc4e869bdb039cd6135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Shower
@@ -3687,7 +3694,6 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
 --- !u!114 &743168441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,6 +4616,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1047674411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4703,6 +4710,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 3
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1064892219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4943,6 +4951,7 @@ MonoBehaviour:
   baseWidth: 2
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1182110412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5183,6 +5192,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1239559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,6 +5286,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1320418790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5369,6 +5380,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1334344313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6678,6 +6690,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1494036102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6771,6 +6784,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1518487193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6864,6 +6878,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &1570293972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7967,7 +7982,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 69bf2e1042b03d4449dd2e7304f8d37d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7993,7 +8008,7 @@ Animator:
   m_GameObject: {fileID: 2031719193}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab6ddd884eec97d4c827cba4df277c34, type: 2}
+  m_Controller: {fileID: 9100000, guid: e74a30a39358369449dd05973dc14d1a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8205,6 +8220,7 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &2055086872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8445,6 +8461,7 @@ MonoBehaviour:
   baseWidth: 2
   baseHeight: 3
   animationTime: 0.5
+  dragMultiplier: 0.7
 --- !u!114 &2120452400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8575,3 +8592,4 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
+  dragMultiplier: 0.7

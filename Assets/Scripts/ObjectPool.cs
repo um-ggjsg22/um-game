@@ -27,12 +27,6 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public RoomObject SpawnObject(string name, int gridX, int gridY)
     {
         // Instantiate object

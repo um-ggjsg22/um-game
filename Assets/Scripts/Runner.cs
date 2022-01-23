@@ -103,5 +103,38 @@ public class Runner : RoomObject
                 GetComponent<Animator>().SetTrigger("Walk");
             }
         }
+
+        // chop chop
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetComponent<Animator>().SetTrigger("Chop");
+
+            if (faceDirection != Direction.Dir_Up)
+                StartCoroutine(Chop());
+        }
+    }
+
+    public IEnumerator Chop()
+    {
+        RectTransform rt = GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(GridMap.Instance.GridSize / 200f * 294f, rt.sizeDelta.y);
+
+        Vector3 translateBy = new Vector3(GridMap.Instance.GridSize / 200f * -47f, 0f);
+        if (faceDirection == Direction.Dir_Right)
+            translateBy.x *= -1f;
+        //else if (faceDirection == Direction.Dir_Down)
+        //    translateBy.x *= 0.5f;
+
+        transform.position += translateBy;
+
+        yield return new WaitForSeconds(0.1f);
+
+        while (inputCooldown)
+        {
+            yield return null;
+        }
+
+        rt.sizeDelta = new Vector2(rt.sizeDelta.y, rt.sizeDelta.y);
+        transform.position -= translateBy;
     }
 }
