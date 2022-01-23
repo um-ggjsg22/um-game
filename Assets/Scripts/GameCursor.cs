@@ -388,6 +388,42 @@ public class GameCursor : MonoBehaviour
         }
         private Dragging(){}
     }
+    
+    public void GetRandomDebuff(int duration)
+    {
+        //Range delimiters:
+        //Freeze - 0-1
+        //Teleport - 1-3
+        //Flip - 3-5
+        //Invert - 5-8
+        //Slow - 8-12
+        var rand = Random.Range(0, 12);
+        if (rand < 5)
+        {
+            if (rand > 3)
+            {
+                ApplyFlip(duration);
+            }else if (rand > 1)
+            {
+                ApplyTeleport(duration);
+            }
+            else
+            {
+                ApplyFreeze(duration);
+            }
+        }
+        else
+        {
+            if (rand < 8)
+            {
+                ApplyInvert(duration);
+            }
+            else
+            {
+                ApplySlow(duration);
+            }
+        }
+    }
 }
 
 public static class GridManager
