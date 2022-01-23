@@ -8,7 +8,7 @@ namespace Objects
     public class Candle:RoomObject, IClickable
     {
         [SerializeField] private CollidableBase fireEffect;
-        [SerializeField] private Transform gameobjectParent;
+        [SerializeField] private Transform gameObjectParent;    // for spawning
         [SerializeField] private float cooldownDuration = 4;
         private bool OnCooldown = false;
 
@@ -32,7 +32,8 @@ namespace Objects
                     var coord = GetGridPosition() + new Vector2(i, j);
                     if (!GridManager.IsGridOccupied(coord))
                     {
-                        var obj = Instantiate(fireEffect, gameobjectParent);
+                        var obj = Instantiate(fireEffect, gameObjectParent);
+                        obj.gameObject.SetActive(true);
                         obj.SetPosition(coord);
                     }
                 }

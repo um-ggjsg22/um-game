@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class menuButton : MonoBehaviour
+public class MenuButton : MonoBehaviour
 {
     public bool playButtonPressed;
     public GameObject selectCharacterPrefab;

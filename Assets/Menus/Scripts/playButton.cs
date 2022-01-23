@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class playButton : MonoBehaviour
+public class PlayButton : MonoBehaviour
 {
     public bool playButtonPressed;
     float delayTimer;

@@ -10,6 +10,9 @@ namespace Objects
         public Vector2 _position;
         [SerializeField] private float timeToLive;
         [SerializeField] private Runner runner;
+
+        [SerializeField] private float effectDuration = 2f;
+
         private void Start()
         {
         }
@@ -24,7 +27,7 @@ namespace Objects
         {
             if (GridManager.GetRunnerPosition() == _position)
             {
-                StartCoroutine(runner.Stun(2));
+                runner.Stun(effectDuration);
                 Destroy(gameObject);
             }
         }

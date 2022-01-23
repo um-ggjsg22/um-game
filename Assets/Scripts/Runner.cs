@@ -26,6 +26,7 @@ public class Runner : RoomObject
     private GameCursor hunterScript;
 
     private bool inputCooldown = false; // input cooldown from previous key input/animation playing
+    private bool stunCooldown = false;
 
     void Awake()
     {
@@ -55,7 +56,7 @@ public class Runner : RoomObject
     // Update is called once per frame
     void Update()
     {
-        if (inputCooldown)
+        if (inputCooldown || stunCooldown)
             return;
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -179,11 +180,17 @@ public class Runner : RoomObject
         transform.position -= translateBy;
     }
 
-    public IEnumerator Stun(float seconds)
+    public void Stun(float seconds)
     {
-        // TODO: trigger animation sfx
-        inputCooldown = true;
+        StartCoroutine(StunCoroutine(seconds));
+    }
+
+    private IEnumerator StunCoroutine(float seconds)
+    {
+        // TODO: trigger animation SFX
+
+        stunCooldown = true;
         yield return new WaitForSeconds(seconds);
-        inputCooldown = false;
+        stunCooldown = false;
     }
 }

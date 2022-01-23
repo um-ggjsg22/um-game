@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4797222786966451782}
   - component: {fileID: 4797222786966451781}
   - component: {fileID: 4797222786966451780}
-  - component: {fileID: 4797222786966451779}
+  - component: {fileID: 5455790158550115794}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4797222786966451779}
+      - m_Target: {fileID: 5455790158550115794}
         m_MethodName: OnButtonPress
         m_Mode: 1
         m_Arguments:
@@ -130,7 +130,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4797222786966451779
+--- !u!114 &5455790158550115794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,12 +139,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4797222786966451777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe75f5a4eca9276449e049a56a0cec81, type: 3}
+  m_Script: {fileID: 11500000, guid: fe1c3f180bb859b4f817dc1be7eb683f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playButtonPressed: 0
-  selectCharacterPrefab: {fileID: 4138871796285086778, guid: 3903e8f5264f5424ca6900d4b97f905d,
-    type: 3}
+  selectCharacterPrefab: {fileID: 0}
   currentCanvas: {fileID: 4797222786986749714}
 --- !u!1 &4797222786986749714
 GameObject:
@@ -259,7 +258,7 @@ GameObject:
   - component: {fileID: 4797222787315089321}
   - component: {fileID: 4797222787315089320}
   - component: {fileID: 4797222787315089303}
-  - component: {fileID: 3515408852889564890}
+  - component: {fileID: 5551096933057983940}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -366,7 +365,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3515408852889564890}
+      - m_Target: {fileID: 0}
         m_MethodName: OnButtonPress
         m_Mode: 1
         m_Arguments:
@@ -377,7 +376,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3515408852889564890
+--- !u!114 &5551096933057983940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -386,7 +385,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4797222787315089301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688c47280559be3418a53f3c0392ddf4, type: 3}
+  m_Script: {fileID: 11500000, guid: e57c90cb4a8483747983fc242fc17592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playButtonPressed: 0
