@@ -543,6 +543,12 @@ public static class GridManager
         return GridMap.Instance.IsOccupied(currObject, (int)coordinate.x, (int)coordinate.y);
     }
     
+    public static bool IsGridOccupied(Vector2 coordinate)
+    {
+        var grid = GridMap.Instance.OccupancyGrid((int)coordinate.x, (int)coordinate.y);
+        return !(grid is null) && !(grid is Runner);
+    }
+    
     public static bool MoveObject(RoomObject currObject, Vector2 coordinate)
     {
         //TODO

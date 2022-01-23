@@ -178,4 +178,12 @@ public class Runner : RoomObject
         rt.sizeDelta = new Vector2(rt.sizeDelta.y, rt.sizeDelta.y);
         transform.position -= translateBy;
     }
+
+    public IEnumerator Stun(float seconds)
+    {
+        // TODO: trigger animation sfx
+        inputCooldown = true;
+        yield return new WaitForSeconds(seconds);
+        inputCooldown = false;
+    }
 }
