@@ -104,6 +104,20 @@ public class AudioManager : MonoBehaviour {
         return 0f;
     }
 
+    public void PlaySFXVoid(string key)
+    {
+        if (SFXClips.ContainsKey(key))
+        {
+            // create a temp AudioSource GameObject; it'll destroy itself after its length
+            AudioSource SFXAudioSource = Instantiate(SFXPrefab);
+            SFXAudioSource.clip = SFXClips[key];
+            //SFXAudioSource.volume = SettingsData.GetSFXVolumeRange();
+            SFXAudioSource.volume = SFXVolume;
+            SFXAudioSource.Play();
+            Destroy(SFXAudioSource.gameObject, SFXAudioSource.clip.length);
+        }
+    }
+
     // Set Volume
     public void SetBGMVolume(float _volume)
     {

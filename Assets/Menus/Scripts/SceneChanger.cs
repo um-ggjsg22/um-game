@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    [SerializeField]
+    private float delay = 2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +18,17 @@ public class SceneChanger : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DelayedChangeScene(string sceneName)
+    {
+        StartCoroutine(ChangeSceneDelayed(sceneName));
+    }
+
+    private IEnumerator ChangeSceneDelayed(string sceneName)
+    {
+        yield return new WaitForSeconds(delay);
+        ChangeScene(sceneName);
     }
 
     public void ChangeScene(string sceneName)

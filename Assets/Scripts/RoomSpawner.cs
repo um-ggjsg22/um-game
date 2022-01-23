@@ -11,10 +11,17 @@ public class RoomSpawner : MonoBehaviour
     [SerializeField]
     private TextAsset[] roomData;
 
+    [SerializeField]
+    private GameObject door;
+
     // Start is called before the first frame update
     void Start()
     {
-        LoadRoom(0);
+        int level = PlayerPrefs.GetInt("NextLevel");
+        LoadRoom(level);
+
+        if (level == 3)
+            door.SetActive(false);
     }
 
     public void LoadRoom(int id)

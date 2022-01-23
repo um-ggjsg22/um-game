@@ -188,6 +188,7 @@ public class Runner : RoomObject
     private IEnumerator StunCoroutine(float seconds)
     {
         // TODO: trigger animation SFX
+        AudioManager.instance.PlaySFX("Oof");
 
         stunCooldown = true;
         yield return new WaitForSeconds(seconds);
