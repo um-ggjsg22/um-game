@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Furniture : RoomObject, IDraggable
 {
@@ -16,17 +17,47 @@ public class Furniture : RoomObject, IDraggable
     {
         return dragMultiplier;
     }
-    
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField]
+    private int durability = 3;
+    [SerializeField]
+    private Sprite brokenSprite;
+
+    public bool BreakObject()
     {
-        
+        durability -= 1;
+        Debug.Log(durability);
+        if (durability == 0)
+        {
+            Debug.Log("Destroyed!");
+
+            // Break object sprite
+            StartCoroutine(SwapBrokenSprite());
+            // Remove from occupancy grid
+            GridMap.Instance.RemoveRoomObjectFromOccupancyGrid(this);
+
+            return true;
+        }
+        else
+        {
+            // TODO: Flashing the sprite Coroutine
+
+            return false;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator SwapBrokenSprite()
     {
+        // Swap to brokenSprite
+        Image imageComponent = GetComponent<Image>();
+        imageComponent.sprite = brokenSprite;
 
+        // TODO: alpha fade out instead
+
+        yield return new WaitForSeconds(3f);
+
+        // Destroy after 3 seconds
+        Destroy(gameObject);
     }
 
     public bool OnMove(Vector2 transitionVector)

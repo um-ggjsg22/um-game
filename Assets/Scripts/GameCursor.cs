@@ -4,6 +4,7 @@ using System.Net;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Serialization;
 using Cursor = UnityEngine.Cursor;
 using Random = UnityEngine.Random;
@@ -80,6 +81,10 @@ public class GameCursor : MonoBehaviour
         transform.position = _gridBottomLeft + new Vector3(_mapWidth * 0.5f, _mapHeight * 0.5f, 0);
         _gridPosition = (Vector2)GridManager.GetGridPosition(CurrentCursorPosition);
         StartCoroutine(TickDownDebuffs());
+
+        ApplyFlip(5);
+        ApplyInvert(5);
+        ApplyFreeze(5);
     }
 
     // Update is called once per frame
@@ -132,10 +137,10 @@ public class GameCursor : MonoBehaviour
             // Compute actual cursor movement factoring in slow
             var xMove = baseXSpeed * aX * Time.deltaTime
                         * (_state is CursorState.Idle ? 1 : _dragPenalty)
-                        * (_slowDurationLeft > 0 ? 1 : slowFactor);
+                        * (_slowDurationLeft > 0 ? slowFactor : 1);
             var yMove = baseYSpeed * aY * Time.deltaTime
                         * (_state is CursorState.Idle ? 1 : _dragPenalty)
-                        * (_slowDurationLeft > 0 ? 1 : slowFactor);
+                        * (_slowDurationLeft > 0 ? slowFactor : 1);
 
             Vector3 offsetVector;
             // Update cursor position
@@ -193,31 +198,114 @@ public class GameCursor : MonoBehaviour
      *  ==================*/
     public void ApplySlow(int durationInSecs)
     {
+        if(_slowDurationLeft == 0)
+        {
+            // Color tint
+            GetComponent<Image>().color = Color.green;
+            StartCoroutine(RemoveSlowVisual());
+        }
         _slowDurationLeft = durationInSecs * 10;
+
+    }
+
+    private IEnumerator RemoveSlowVisual()
+    {
+        yield return null;
+        while (_slowDurationLeft > 0)
+            yield return new WaitForSeconds(0.1f);
+
+        GetComponent<Image>().color = Color.white;
     }
     
     public void ApplyFreeze(int durationInSecs)
     {
+        if (_freezeDurationLeft == 0)
+        {
+            // Color tint
+            GetComponent<Image>().color = new Color(0f, 0f, 1f, 0.5f);
+            StartCoroutine(RemoveFreezeVisual());
+        }
+
         _freezeDurationLeft = durationInSecs * 10;
     }
-    
+
+    private IEnumerator RemoveFreezeVisual()
+    {
+        yield return null;
+        while (_freezeDurationLeft > 0)
+            yield return new WaitForSeconds(0.1f);
+
+        GetComponent<Image>().color = Color.white;
+    }
+
     public void ApplyTeleport(int durationInSecs)
     {
+        if (_teleportDurationLeft == 0)
+        {
+            // Flip Y-axis
+            transform.localScale = new Vector3(transform.localScale.x, -1f, 1f);
+            StartCoroutine(RemoveTeleportVisual());
+        }
+
         _teleportDurationLeft = durationInSecs * 10;
     }
-    
+
+    private IEnumerator RemoveTeleportVisual()
+    {
+        yield return null;
+        while (_teleportDurationLeft > 0)
+            yield return new WaitForSeconds(0.1f);
+
+        // Revert Y-axis
+        transform.localScale = new Vector3(transform.localScale.x, 1f, 1f);
+    }
+
     public void ApplyInvert(int durationInSecs)
     {
+        if (_invertDurationLeft == 0)
+        {
+            // Flip X-axis
+            transform.localScale = new Vector3(-1f, transform.localScale.y, 1f);
+            StartCoroutine(RemoveInvertVisual());
+        }
+
         _invertDurationLeft = durationInSecs * 10;
     }
-    
+
+    private IEnumerator RemoveInvertVisual()
+    {
+        yield return null;
+        while (_invertDurationLeft > 0)
+            yield return new WaitForSeconds(0.1f);
+
+        // Revert Y-axis
+        transform.localScale = new Vector3(1f, transform.localScale.y, 1f);
+    }
+
     public void ApplyFlip(int durationInSecs)
     {
+        if (_flipAxesDurationLeft == 0)
+        {
+            // Rotate
+            transform.eulerAngles = new Vector3(0f, 0f, 90f);
+            StartCoroutine(RemoveFlipVisual());
+        }
+
         _flipAxesDurationLeft = durationInSecs * 10;
     }
 
+    private IEnumerator RemoveFlipVisual()
+    {
+        yield return null;
+        while (_flipAxesDurationLeft > 0)
+            yield return new WaitForSeconds(0.1f);
 
-    
+        // Rotate back
+        transform.eulerAngles = new Vector3(0f, 0f, 0f);
+    }
+
+
+
     // Properties to simplify code
     private static bool LeftClick => Input.GetMouseButtonDown(0);
 

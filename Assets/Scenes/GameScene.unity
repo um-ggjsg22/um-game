@@ -178,6 +178,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &6029710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +421,8 @@ MonoBehaviour:
   baseHeight: 3
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &47159072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,6 +854,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &209156633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1532,6 +1538,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &308675370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,6 +1634,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &331050739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,6 +2604,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &546376701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3140,6 +3152,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &652652632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3602,6 +3616,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &737793735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4617,6 +4633,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1047674411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4711,6 +4729,8 @@ MonoBehaviour:
   baseHeight: 3
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1064892219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4952,6 +4972,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 21300000, guid: 245bf2c62d22f33479fc964e759d80a6, type: 3}
 --- !u!114 &1182110412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5193,6 +5215,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1239559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5287,6 +5311,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1320418790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5381,6 +5407,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1334344313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5469,10 +5497,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0ce3a06ef6e664e8f781375a56e603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseXSpeed: 800
-  baseYSpeed: 800
+  baseXSpeed: 500
+  baseYSpeed: 500
   minDragDistanceThreshold: 10
-  slowFactor: 0.8
+  slowFactor: 0.1
   teleportProbability: 0.002
   teleportCooldown: 5
 --- !u!114 &1348111009
@@ -6691,6 +6719,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1494036102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6785,6 +6815,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1518487193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6879,6 +6911,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &1570293972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7940,6 +7974,7 @@ MonoBehaviour:
   baseHeight: 1
   startGridX: 4
   startGridY: 0
+  hunterScript: {fileID: 1348111008}
 --- !u!114 &2031719196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8221,6 +8256,8 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &2055086872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8462,6 +8499,8 @@ MonoBehaviour:
   baseHeight: 3
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}
 --- !u!114 &2120452400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8593,3 +8632,5 @@ MonoBehaviour:
   baseHeight: 1
   animationTime: 0.5
   dragMultiplier: 0.7
+  durability: 3
+  brokenSprite: {fileID: 0}

@@ -164,4 +164,22 @@ public class GridMap : MonoBehaviour
     {
         obj.SetParent(SpawnObjectParent.Find("GridRow" + gridY));
     }
+
+    public void RemoveRoomObjectFromOccupancyGrid(RoomObject obj)
+    {
+        if (obj != null)
+        {
+            // Remove from occupancy grid
+            Vector2 pos = obj.GetGridPosition();
+            int startX = (int)pos.x;
+            int startY = (int)pos.y;
+            for (int i = startX; i < startX + obj.BaseWidth; ++i)
+            {
+                for (int j = startY; j < startY + obj.BaseHeight; ++j)
+                {
+                    ClearOccupancyGrid(i, j);
+                }
+            }
+        }
+    }
 }

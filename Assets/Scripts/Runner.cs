@@ -22,6 +22,9 @@ public class Runner : RoomObject
 
     private SpriteSwapper spriteSwapper;
 
+    [SerializeField]
+    private GameCursor hunterScript;
+
     private bool inputCooldown = false; // input cooldown from previous key input/animation playing
 
     void Awake()
@@ -107,14 +110,48 @@ public class Runner : RoomObject
         // chop chop
         else if (Input.GetKeyDown(KeyCode.Space))
         {
+            // Chop Animation
             GetComponent<Animator>().SetTrigger("Chop");
 
             if (faceDirection != Direction.Dir_Up)
-                StartCoroutine(Chop());
+                StartCoroutine(ChopAnimation());
+
+            // Chop Behaviour
+            GridPosition offset = GetOffsetVector();
+            RoomObject roomObject = GridMap.Instance.OccupancyGrid(gridPosition.PosX + offset.PosX, gridPosition.PosY + offset.PosY);
+            Debug.Log(roomObject.name);
+
+            if (roomObject is Furniture furniture)
+            {
+                Debug.Log("Hi furniture");
+                if (furniture.BreakObject())
+                {
+                    // Apply Hunter debuff
+                    hunterScript.GetRandomDebuff(5);
+                }
+            }
         }
     }
 
-    public IEnumerator Chop()
+    private GridPosition GetOffsetVector()
+    {
+        switch (faceDirection)
+        {
+            case Direction.Dir_Up:
+                return new GridPosition(0, 1);
+            case Direction.Dir_Down:
+                return new GridPosition(0, -1);
+            case Direction.Dir_Left:
+                return new GridPosition(-1, 0);
+            case Direction.Dir_Right:
+                return new GridPosition(1, 0);
+
+            default:
+                return new GridPosition(0, 0);
+        }
+    }
+
+    private IEnumerator ChopAnimation()
     {
         RectTransform rt = GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(GridMap.Instance.GridSize / 200f * 294f, rt.sizeDelta.y);
