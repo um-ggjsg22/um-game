@@ -61,11 +61,11 @@ public class Runner : RoomObject
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             spriteSwapper.SwapAnimator("Up");
+            faceDirection = Direction.Dir_Up;
 
             if (!GridMap.Instance.IsOccupied(this, gridPosition.PosX, gridPosition.PosY + 1))
             {
                 SetGridPosition(gridPosition.PosX, gridPosition.PosY + 1);
-                faceDirection = Direction.Dir_Up;
 
                 GetComponent<Animator>().SetTrigger("Walk");
             }
@@ -73,11 +73,11 @@ public class Runner : RoomObject
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             spriteSwapper.SwapAnimator("Down");
+            faceDirection = Direction.Dir_Down;
 
             if (!GridMap.Instance.IsOccupied(this, gridPosition.PosX, gridPosition.PosY - 1))
             {
                 SetGridPosition(gridPosition.PosX, gridPosition.PosY - 1);
-                faceDirection = Direction.Dir_Down;
 
                 GetComponent<Animator>().SetTrigger("Walk");
             }
@@ -85,11 +85,11 @@ public class Runner : RoomObject
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             spriteSwapper.SwapAnimator("Left");
+            faceDirection = Direction.Dir_Left;
 
             if (!GridMap.Instance.IsOccupied(this, gridPosition.PosX - 1, gridPosition.PosY))
             {
                 SetGridPosition(gridPosition.PosX - 1, gridPosition.PosY);
-                faceDirection = Direction.Dir_Left;
 
                 GetComponent<Animator>().SetTrigger("Walk");
             }
@@ -97,11 +97,11 @@ public class Runner : RoomObject
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             spriteSwapper.SwapAnimator("Right");
+            faceDirection = Direction.Dir_Right;
 
             if (!GridMap.Instance.IsOccupied(this, gridPosition.PosX + 1, gridPosition.PosY))
             {
                 SetGridPosition(gridPosition.PosX + 1, gridPosition.PosY);
-                faceDirection = Direction.Dir_Right;
 
                 GetComponent<Animator>().SetTrigger("Walk");
             }
@@ -118,8 +118,11 @@ public class Runner : RoomObject
 
             // Chop Behaviour
             GridPosition offset = GetOffsetVector();
-            RoomObject roomObject = GridMap.Instance.OccupancyGrid(gridPosition.PosX + offset.PosX, gridPosition.PosY + offset.PosY);
-            Debug.Log(roomObject.name);
+            GridPosition chopPos = new GridPosition(gridPosition.PosX + offset.PosX, gridPosition.PosY + offset.PosY);
+            if (chopPos.PosX < 0 || chopPos.PosX >= GridMap.Instance.GridLength || chopPos.PosY < 0 || chopPos.PosY >= GridMap.Instance.GridLength)
+                return;
+
+            RoomObject roomObject = GridMap.Instance.OccupancyGrid(chopPos.PosX, chopPos.PosY);
 
             if (roomObject is Furniture furniture)
             {

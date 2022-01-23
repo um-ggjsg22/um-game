@@ -41,9 +41,23 @@ public class Furniture : RoomObject, IDraggable
         else
         {
             // TODO: Flashing the sprite Coroutine
+            StartCoroutine(FlashSprite());
 
             return false;
         }
+    }
+
+    private IEnumerator FlashSprite()
+    {
+        Image imageComponent = GetComponent<Image>();
+        Color imageColor = imageComponent.color;
+
+        imageColor.a = 0.5f;
+        imageComponent.color = imageColor;
+        yield return new WaitForSeconds(0.1f);
+
+        imageColor.a = 1f;
+        imageComponent.color = imageColor;
     }
 
     private IEnumerator SwapBrokenSprite()

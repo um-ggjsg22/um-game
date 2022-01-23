@@ -176,10 +176,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 1
+  brokenSprite: {fileID: 21300000, guid: 972a69ca86bb37b4d8bd2028e8ba7c36, type: 3}
 --- !u!114 &6029710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,10 +419,10 @@ MonoBehaviour:
   spriteHeight: 3
   baseWidth: 1
   baseHeight: 3
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.6
+  dragMultiplier: 0.6
+  durability: 5
+  brokenSprite: {fileID: 21300000, guid: 3fc86aa4276429b45bb51f45b3ddaebb, type: 3}
 --- !u!114 &47159072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,9 +853,9 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
-  dragMultiplier: 0.7
+  dragMultiplier: 0.8
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: 6f8e16fb6cda4eb47b95fc1855712770, type: 3}
 --- !u!114 &209156633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,10 +1536,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 1
+  brokenSprite: {fileID: 21300000, guid: 93935c96ba990ba49845ba7cb9999848, type: 3}
 --- !u!114 &308675370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,10 +1632,10 @@ MonoBehaviour:
   spriteHeight: 2
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
+  animationTime: 0.4
+  dragMultiplier: 0.6
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: a2dd3258602ec3344ac48d46d77d9081, type: 3}
 --- !u!114 &331050739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1655,7 +1655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5392feaf987de70468e6fc0b661a149f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a08742503ad03a45aee043ac8821680, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2602,10 +2602,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 2
+  brokenSprite: {fileID: 21300000, guid: 79694c5a8a232464798bd62b8e06908d, type: 3}
 --- !u!114 &546376701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3150,10 +3150,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 2
+  brokenSprite: {fileID: 21300000, guid: 79694c5a8a232464798bd62b8e06908d, type: 3}
 --- !u!114 &652652632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3614,10 +3614,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 2
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 1
+  dragMultiplier: 0.15
+  durability: 7
+  brokenSprite: {fileID: 21300000, guid: 2c3273f7bf61d3942a03b8771e1135ff, type: 3}
 --- !u!114 &737793735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4631,10 +4631,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
+  animationTime: 0.4
+  dragMultiplier: 0.85
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: 6f8e16fb6cda4eb47b95fc1855712770, type: 3}
 --- !u!114 &1047674411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4727,10 +4727,10 @@ MonoBehaviour:
   spriteHeight: 3
   baseWidth: 1
   baseHeight: 3
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.6
+  dragMultiplier: 0.6
+  durability: 5
+  brokenSprite: {fileID: 21300000, guid: ce190e771281c3747a99d57504281761, type: 3}
 --- !u!114 &1064892219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4970,9 +4970,9 @@ MonoBehaviour:
   spriteHeight: 2
   baseWidth: 2
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
+  animationTime: 0.8
+  dragMultiplier: 0.35
+  durability: 6
   brokenSprite: {fileID: 21300000, guid: 245bf2c62d22f33479fc964e759d80a6, type: 3}
 --- !u!114 &1182110412
 MonoBehaviour:
@@ -5213,10 +5213,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.3
+  dragMultiplier: 0.9
+  durability: 2
+  brokenSprite: {fileID: 21300000, guid: ba4c664627825d34a80b96d74a00200f, type: 3}
 --- !u!114 &1239559824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5309,10 +5309,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 1
+  brokenSprite: {fileID: 21300000, guid: 029c4674a14d74a489699593d28aeb2e, type: 3}
 --- !u!114 &1320418790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5405,10 +5405,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
+  animationTime: 0.4
+  dragMultiplier: 0.85
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: 2e744e37212fbaa45a0034eaef681603, type: 3}
 --- !u!114 &1334344313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6717,10 +6717,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.1
+  dragMultiplier: 1
+  durability: 2
+  brokenSprite: {fileID: 21300000, guid: 79694c5a8a232464798bd62b8e06908d, type: 3}
 --- !u!114 &1494036102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6814,9 +6814,9 @@ MonoBehaviour:
   baseWidth: 1
   baseHeight: 1
   animationTime: 0.5
-  dragMultiplier: 0.7
+  dragMultiplier: 0.8
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: 2e744e37212fbaa45a0034eaef681603, type: 3}
 --- !u!114 &1518487193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6909,10 +6909,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.3
+  dragMultiplier: 0.5
+  durability: 2
+  brokenSprite: {fileID: 21300000, guid: fae5eb63820b22747acae443cf30a2b0, type: 3}
 --- !u!114 &1570293972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8043,7 +8043,7 @@ Animator:
   m_GameObject: {fileID: 2031719193}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e74a30a39358369449dd05973dc14d1a, type: 2}
+  m_Controller: {fileID: 9100000, guid: ab6ddd884eec97d4c827cba4df277c34, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8254,10 +8254,10 @@ MonoBehaviour:
   spriteHeight: 1
   baseWidth: 1
   baseHeight: 1
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.7
+  dragMultiplier: 0.5
+  durability: 5
+  brokenSprite: {fileID: 21300000, guid: 30b589bc99ff7b245836b15f954bc7a9, type: 3}
 --- !u!114 &2055086872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8497,10 +8497,10 @@ MonoBehaviour:
   spriteHeight: 3
   baseWidth: 2
   baseHeight: 3
-  animationTime: 0.5
-  dragMultiplier: 0.7
-  durability: 3
-  brokenSprite: {fileID: 0}
+  animationTime: 0.8
+  dragMultiplier: 0.3
+  durability: 6
+  brokenSprite: {fileID: 21300000, guid: 3fc86aa4276429b45bb51f45b3ddaebb, type: 3}
 --- !u!114 &2120452400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8633,4 +8633,4 @@ MonoBehaviour:
   animationTime: 0.5
   dragMultiplier: 0.7
   durability: 3
-  brokenSprite: {fileID: 0}
+  brokenSprite: {fileID: 21300000, guid: 3fecd35459f367143ae9e734d5e065e5, type: 3}
