@@ -112,8 +112,9 @@ public class Runner : RoomObject
         {
             // Chop Animation
             GetComponent<Animator>().SetTrigger("Chop");
-
             StartCoroutine(ChopAnimation());
+            // Chop SFX
+            AudioManager.instance.PlaySFX("Shing");
 
             // Chop Behaviour
             GridPosition offset = GetOffsetVector();
@@ -125,7 +126,8 @@ public class Runner : RoomObject
 
             if (roomObject is Furniture furniture)
             {
-                Debug.Log("Hi furniture");
+                // Chop SFX
+                AudioManager.instance.PlaySFX("Chop");
                 if (furniture.BreakObject())
                 {
                     // Apply Hunter debuff

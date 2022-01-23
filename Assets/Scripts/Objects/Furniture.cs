@@ -23,13 +23,40 @@ public class Furniture : RoomObject, IDraggable
     [SerializeField]
     private Sprite brokenSprite;
 
+    private int maxDurability = 1;
+
+    private void Awake()
+    {
+        maxDurability = durability;
+    }
+
+    private void PlayBreakSFX()
+    {
+        // Heavy
+        if (maxDurability >= 5)
+        {
+            AudioManager.instance.PlaySFX("HeavyBreak");
+        }
+        // Mid
+        else if (maxDurability >= 3)
+        {
+            AudioManager.instance.PlaySFX("MidBreak");
+        }
+        // Light
+        else
+        {
+            AudioManager.instance.PlaySFX("LightBreak");
+        }
+    }
+
     public bool BreakObject()
     {
         durability -= 1;
         Debug.Log(durability);
         if (durability == 0)
         {
-            Debug.Log("Destroyed!");
+            // Play SFX
+            PlayBreakSFX();
 
             // Break object sprite
             StartCoroutine(SwapBrokenSprite());
@@ -85,6 +112,24 @@ public class Furniture : RoomObject, IDraggable
         if(!this.CanPlace(newPosition)) return false;
         StartCoroutine(AnimateMovement(GridManager.GetPositionCoordinate(newPosition, this)));
         GridManager.MoveObject(this, newPosition);
+
+        // Play Drag SFX
+        // Heavy
+        if (maxDurability >= 5)
+        {
+            AudioManager.instance.PlaySFX("HeavyItem");
+        }
+        // Mid
+        else if (maxDurability >= 3)
+        {
+            AudioManager.instance.PlaySFX("MidItem");
+        }
+        // Light
+        else
+        {
+            AudioManager.instance.PlaySFX("LightItem");
+        }
+
         return true;
     }
     
