@@ -25,21 +25,26 @@ namespace Objects
         }
         public void OnClick()
         {
-            // Swap to brokenSprite
-            Image imageComponent = GetComponent<Image>();
-            imageComponent.sprite = toppledSprite;
-            for (var i = 0; i < 6; i++)
-            {
-                var x = (int)Math.Floor((double)Random.Range(-1, 2));
-                var y = (int)Math.Floor((double)Random.Range(-1, 2));
-                var coord = GetGridPosition() + new Vector2(x, y);
-                if (!GridManager.IsGridOccupied(coord))
-                {
-                    var obj = Instantiate(legos, gameObjectParent);
-                    obj.gameObject.SetActive(true);
-                    obj.SetPosition(coord);
-                }
-            }
+            GridMap.Instance.RemoveRoomObjectFromOccupancyGrid(this);
+            var obj = Instantiate(legos, gameObjectParent);
+            obj.gameObject.SetActive(true);
+            obj.SetPosition(this.GetGridPosition());
+            Destroy(gameObject);
+            // // Swap to brokenSprite
+            // Image imageComponent = GetComponent<Image>();
+            // imageComponent.sprite = toppledSprite;
+            // for (var i = 0; i < 6; i++)
+            // {
+            //     var x = (int)Math.Floor((double)Random.Range(-1, 2));
+            //     var y = (int)Math.Floor((double)Random.Range(-1, 2));
+            //     var coord = GetGridPosition() + new Vector2(x, y);
+            //     if (!GridManager.IsGridOccupied(coord))
+            //     {
+            //         var obj = Instantiate(legos, gameObjectParent);
+            //         obj.gameObject.SetActive(true);
+            //         obj.SetPosition(coord);
+            //     }
+            // }
         }
     }
 }
