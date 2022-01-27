@@ -545,7 +545,7 @@ public static class GridManager
     
     public static bool IsGridOccupied(Vector2 coordinate)
     {
-        if(coordinate.x < 0 || coordinate.x > GridMap.Instance.GridSize || coordinate.y < 0 || coordinate.y >= GridMap.Instance.GridSize) return true;
+        if(coordinate.x < 0 || coordinate.x >= GridMap.Instance.GridSize || coordinate.y < 0 || coordinate.y >= GridMap.Instance.GridSize) return true;
         var grid = GridMap.Instance.OccupancyGrid((int)coordinate.x, (int)coordinate.y);
         return !(grid is null) && !(grid is Runner);
     }
