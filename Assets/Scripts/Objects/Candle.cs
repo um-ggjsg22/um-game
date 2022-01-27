@@ -30,7 +30,7 @@ namespace Objects
                 for (var j = -1; j <= 1; j++)
                 {
                     var coord = GetGridPosition() + new Vector2(i, j);
-                    if (!GridManager.IsGridOccupied(coord))
+                    if (!GridManager.IsGridOccupied(null, coord))
                     {
                         var obj = Instantiate(fireEffect, gameObjectParent);
                         obj.gameObject.SetActive(true);

@@ -14,13 +14,23 @@ public class RoomSpawner : MonoBehaviour
     [SerializeField]
     private GameObject door;
 
+    [SerializeField]
+    [Tooltip("If true, load current room level from PlayerPrefs")]
+    private bool readPlayerPref = true;
+    [SerializeField]
+    [Tooltip("If readPlayerPref is false, load roomLevel instead")]
+    private int roomLevel = 1;
+
     // Start is called before the first frame update
     void Start()
     {
-        int level = PlayerPrefs.GetInt("NextLevel");
+        int level = roomLevel;
+        if (readPlayerPref)
+            level = PlayerPrefs.GetInt("NextLevel", roomLevel);
+
         LoadRoom(level);
 
-        if (level == 3)
+        if (level == roomData.Length - 1)
             door.SetActive(false);
     }
 

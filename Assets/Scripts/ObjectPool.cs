@@ -2,18 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class ObjectTemplate
-{
-    public string name;
-    public RoomObject obj;
-}
-
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField]
-    private ObjectTemplate[] objectList;
-
     private Dictionary<string, RoomObject> objectsDict;
 
     // Start is called before the first frame update
@@ -21,9 +11,9 @@ public class ObjectPool : MonoBehaviour
     {
         // Instantiate Dictionary of objects
         objectsDict = new Dictionary<string, RoomObject>();
-        foreach (ObjectTemplate obj in objectList)
+        foreach (Transform child in transform)
         {
-            objectsDict.Add(obj.name, obj.obj);
+            objectsDict.Add(child.gameObject.name, child.GetComponent<RoomObject>());
         }
     }
 

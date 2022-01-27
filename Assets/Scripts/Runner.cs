@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteSwapper))]
 public class Runner : RoomObject
@@ -182,17 +183,20 @@ public class Runner : RoomObject
 
     public void Stun(float seconds)
     {
+        // Trigger SFX
+        PlayHurtSFX();
+
+        // Lock control
         StartCoroutine(StunCoroutine(seconds));
     }
 
     private IEnumerator StunCoroutine(float seconds)
     {
-        // TODO: trigger animation SFX
-        PlayHurtSFX();
-
         stunCooldown = true;
+        GetComponent<Image>().color = new Color(0.5f, 0f, 0f, 0.5f);
         yield return new WaitForSeconds(seconds);
         stunCooldown = false;
+        GetComponent<Image>().color = Color.white;
     }
 
     private void PlayHurtSFX()
