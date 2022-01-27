@@ -29,6 +29,10 @@ namespace Objects
             var obj = Instantiate(legos, gameObjectParent);
             obj.gameObject.SetActive(true);
             obj.SetPosition(this.GetGridPosition());
+
+            // Play SFX
+            AudioManager.instance.PlaySFX("LegoSpill");
+
             Destroy(gameObject);
             // // Swap to brokenSprite
             // Image imageComponent = GetComponent<Image>();

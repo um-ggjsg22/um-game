@@ -694,18 +694,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11403756, guid: dfc32200ab6a43a49be91a8eb4c8d9af, type: 3}
-      propertyPath: SFXClipsSerialize.Array.size
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 11403756, guid: dfc32200ab6a43a49be91a8eb4c8d9af, type: 3}
-      propertyPath: SFXClipsSerialize.Array.data[15].name
-      value: ButtonClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 11403756, guid: dfc32200ab6a43a49be91a8eb4c8d9af, type: 3}
-      propertyPath: SFXClipsSerialize.Array.data[15].audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: e1153391e1c5c7443a29ee50d3f48936, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc32200ab6a43a49be91a8eb4c8d9af, type: 3}
 --- !u!114 &1354119394 stripped

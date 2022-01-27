@@ -84,6 +84,10 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 577b43c1baf2660449b007b339376cce, type: 3}
   - name: Shing
     audioClip: {fileID: 8300000, guid: 822149c8ecda9244d99a41fe335401e9, type: 3}
+  - name: ButtonClick
+    audioClip: {fileID: 8300000, guid: e1153391e1c5c7443a29ee50d3f48936, type: 3}
+  - name: LegoSpill
+    audioClip: {fileID: 8300000, guid: abf340308e534214aaba2bf3bb43f414, type: 3}
   sfxVolume: 1
   bgmVolume: 1
 --- !u!82 &8274882

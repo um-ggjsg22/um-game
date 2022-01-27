@@ -2134,8 +2134,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 2267bca9cb610524585564fe5864d37d, type: 3}
   - {fileID: 4900000, guid: 80df7991daa84ac4f9c57fcefe9aa29b, type: 3}
   door: {fileID: 95290368}
-  readPlayerPref: 0
-  roomLevel: 4
+  readPlayerPref: 1
+  roomLevel: 0
 --- !u!114 &598308799
 MonoBehaviour:
   m_ObjectHideFlags: 0
