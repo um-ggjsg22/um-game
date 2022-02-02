@@ -1,0 +1,1 @@
+{"floor":"FinalFloor","wall":"wall-1","objects":[{"objectType":"Pedestal","gridX":5,"gridY":6}]}

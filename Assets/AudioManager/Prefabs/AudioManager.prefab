@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &114688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480208}
+  - component: {fileID: 11403756}
+  - component: {fileID: 8274882}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &480208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11403756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f0c1927c3a56847bb76ec4b81f3cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXPrefab: {fileID: 8233008, guid: 291c03a8cf11f0242b7e6ef0cafd0a00, type: 3}
+  musicPlayer: {fileID: 8274882}
+  musicClipsSerialize:
+  - name: MainMenu
+    audioClip: {fileID: 8300000, guid: cabbcd55123f2914688c20a9695529c7, type: 3}
+  - name: Gameplay
+    audioClip: {fileID: 8300000, guid: 720eff19099d22d4f851a6a66900c5c3, type: 3}
+  - name: Other
+    audioClip: {fileID: 8300000, guid: 3d7bbc9c9b59d5747bcb046076017ab6, type: 3}
+  SFXClipsSerialize:
+  - name: Chop
+    audioClip: {fileID: 8300000, guid: dc2db20d0f9946a499067cd358ceb1af, type: 3}
+  - name: HeavyBreak
+    audioClip: {fileID: 8300000, guid: c933f21f1c3642d4f84c5aa35ff727bc, type: 3}
+  - name: HeavyItem
+    audioClip: {fileID: 8300000, guid: 7f2f15ef3f9842f45a69124ba93dd7bd, type: 3}
+  - name: LightBreak
+    audioClip: {fileID: 8300000, guid: 5e2119aee6fa31042ac8cda2e5ff6b85, type: 3}
+  - name: LightItem
+    audioClip: {fileID: 8300000, guid: 11eec9aa126d95b43a1838d60bbb1d75, type: 3}
+  - name: MidBreak
+    audioClip: {fileID: 8300000, guid: 757579b836048e84fafafbe4db462d8f, type: 3}
+  - name: MidItem
+    audioClip: {fileID: 8300000, guid: 07105baacf61c3c418b7e2a7ec053117, type: 3}
+  - name: Oof
+    audioClip: {fileID: 8300000, guid: 8d8ffb151d08c6b45be33a24cdfbcffe, type: 3}
+  - name: Ow
+    audioClip: {fileID: 8300000, guid: a4ee244eaf640944fb2272f270110667, type: 3}
+  - name: Ow2
+    audioClip: {fileID: 8300000, guid: ff73a91434a2d2942b2b436b7c5306c6, type: 3}
+  - name: Ow3
+    audioClip: {fileID: 8300000, guid: 8fbdaaf4cf855404c935e90406926303, type: 3}
+  - name: Ow4
+    audioClip: {fileID: 8300000, guid: d890e672ad386c04fa2cd21fce0923e6, type: 3}
+  - name: Ow5
+    audioClip: {fileID: 8300000, guid: 3f36bc56227f8d14fa3472150e5b9896, type: 3}
+  - name: Ow6
+    audioClip: {fileID: 8300000, guid: 577b43c1baf2660449b007b339376cce, type: 3}
+  - name: Shing
+    audioClip: {fileID: 8300000, guid: 822149c8ecda9244d99a41fe335401e9, type: 3}
+  - name: ButtonClick
+    audioClip: {fileID: 8300000, guid: e1153391e1c5c7443a29ee50d3f48936, type: 3}
+  - name: LegoSpill
+    audioClip: {fileID: 8300000, guid: abf340308e534214aaba2bf3bb43f414, type: 3}
+  sfxVolume: 1
+  bgmVolume: 1
+--- !u!82 &8274882
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114688}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
